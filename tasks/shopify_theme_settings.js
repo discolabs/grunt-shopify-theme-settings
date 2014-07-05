@@ -7,6 +7,7 @@
  */
 
 'use strict';
+var swig = require('swig');
 
 module.exports = function(grunt) {
 
@@ -15,15 +16,13 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('shopify_theme_settings', 'Grunt plugin to build a settings.html file for Shopify themes.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+    var options = this.options();
 
-    // Iterate over all specified file groups.
+    // Iterate over all specified file targets.
     this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
+
+      // Test each source YAML file for existence, then reduce the parsed YAML into a single sections object.
+      var sections = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -31,16 +30,30 @@ module.exports = function(grunt) {
         } else {
           return true;
         }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+      }).reduce(function(sections, filepath) {
+        // Parse source file.
+        var parsed = grunt.file.readYAML(filepath);
 
-      // Handle options.
-      src += options.punctuation;
+        // Add the sections from the parsed source file to our existing sections.
+        for(var key in parsed) {
+          if(parsed.hasOwnProperty(key)) {
+            sections[key] = parsed[key];
+          }
+        }
+
+        return sections;
+      }, {});
+
+      // Compile the Swig template.
+      var settingsTemplate = swig.compileFile('templates/settings.html');
+
+      // Render using swig.
+      var output = settingsTemplate({
+        sections: sections
+      });
 
       // Write the destination file.
-      grunt.file.write(f.dest, src);
+      grunt.file.write(f.dest, output);
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');

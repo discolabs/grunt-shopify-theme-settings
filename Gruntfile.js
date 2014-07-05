@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         options: {
         },
         files: {
-          'tmp/test.html': ['test/fixtures/test.yml']
+          'tmp/test.html': ['test/fixtures/test.yml', 'test/fixtures/test2.yml']
         }
       }
     },

@@ -1,0 +1,28 @@
+{% for section in sections %}
+<fieldset>
+  <legend>{{ loop.key | escape }}</legend>
+
+  {% for subsection in section %}
+  <h3>{{ loop.key | escape }}</h3>
+  <table>
+    {% for field in subsection %}
+    <tr>
+      <th>
+        <label for="{{ field.name }}">{{ loop.key | escape }}</label>
+      </th>
+      <td>
+        {% set field_template = field.type + ".html" %}
+        {% include field_template %}
+      </td>
+    </tr>
+    {% if field.help %}
+    <tr>
+      <th></th>
+      <td><small>{{ field.help }}</small></td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </table>
+  {% endfor %}
+</fieldset>
+{% endfor %}
