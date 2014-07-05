@@ -1,0 +1,25 @@
+---
+Appearance and Fonts:
+
+  Background:
+
+    Background Style:
+      name: background_style
+      type: select
+      options:
+        none: None
+        color: Custom Color
+        image: Custom Image
+
+    Background Color:
+      name: background_color
+      type: color
+
+    Background Image:
+      name: background_image.jpg
+      type: file
+      help: Upload a jpeg.
+
+    Repeat Backgound Image?:
+      name: background_image_repeat
+      type: checkbox

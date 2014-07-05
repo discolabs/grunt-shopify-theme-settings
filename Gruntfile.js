@@ -30,11 +30,16 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     shopify_theme_settings: {
-      compile: {
-        options: {
-        },
+      compileSpecific: {
+        options: {},
         files: {
-          'tmp/test.html': ['test/fixtures/test.yml', 'test/fixtures/test2.yml']
+          'tmp/test-specific.html': ['test/fixtures/c.yml', 'test/fixtures/a.yml']
+        }
+      },
+      compileGlob: {
+        options: {},
+        files: {
+          'tmp/test-glob.html': ['test/fixtures/*.yml']
         }
       }
     },

@@ -1,0 +1,9 @@
+---
+Checkout:
+
+  Checkout:
+
+    Checkout Logo:
+      name: checkout_logo.jpg
+      type: file
+      help: Upload a jpeg.

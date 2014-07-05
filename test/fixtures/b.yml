@@ -1,0 +1,38 @@
+---
+Navigation:
+
+  Links:
+
+    Favourite Linklist:
+      name: favourite_linklist
+      type: linklist
+
+    Favourite Blog:
+      name: favourite_blog
+      type: blog
+
+    Favourite Collection:
+      name: favourite_collection
+      type: collection
+
+    Favourite Snippet:
+      name: favourite_snippet
+      type: snippet
+
+Typography:
+
+  Fonts:
+
+    Heading Font:
+      name: heading_font
+      type: font
+
+    Body Font:
+      name: body_font
+      type: font
+
+  Disclaimers:
+
+    Disclaimer:
+      name: disclaimer
+      type: text-multi
