@@ -52,7 +52,7 @@ module.exports = function(grunt) {
       }, {});
 
       // Compile and render using Swig.
-      var settingsTemplate = swig.compileFile('./templates/settings.html');
+      var settingsTemplate = swig.compileFile(__dirname + '/templates/settings.html');
       var output = settingsTemplate({
         sections: sections
       });
