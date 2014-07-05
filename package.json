@@ -1,0 +1,42 @@
+{
+  "name": "grunt-shopify-theme-settings",
+  "description": "Grunt plugin to build a settings.html file for Shopify themes.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/discolabs/grunt-shopify-theme-settings",
+  "author": {
+    "name": "Gavin Ballard",
+    "email": "gavin@discolabs.com",
+    "url": "http://discolabs.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/discolabs/grunt-shopify-theme-settings.git"
+  },
+  "bugs": {
+    "url": "https://github.com/discolabs/grunt-shopify-theme-settings/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/discolabs/grunt-shopify-theme-settings/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt": "~0.4.5"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
