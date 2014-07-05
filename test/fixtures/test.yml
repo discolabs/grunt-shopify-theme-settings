@@ -1,0 +1,30 @@
+---
+- section: Appearance & Fonts
+  subsections:
+
+    - subsection: Background
+      fields:
+
+        - field: Background Style
+          name: background_style
+          type: select
+          options:
+            - value: none
+              label: None
+            - value: color
+              label: Custom Color
+            - value: image
+              label: Custom Image
+
+        - field: Background Color
+          name: background_color
+          type: color
+
+        - field: Background Image
+          name: background_image.jpg
+          type: file
+          help: Upload a jpeg.
+
+        - field: Repeat Backgound Image?
+          name: background_image_repeat
+          type: checkbox
