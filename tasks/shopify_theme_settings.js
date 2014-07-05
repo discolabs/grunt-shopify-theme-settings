@@ -8,6 +8,7 @@
 
 'use strict';
 var swig = require('swig');
+var tidy = require('htmltidy').tidy;
 
 module.exports = function(grunt) {
 
@@ -16,7 +17,13 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('shopify_theme_settings', 'Grunt plugin to build a settings.html file for Shopify themes.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options();
+    var options = this.options({
+      indent: true,
+      doctype: 'omit'
+    });
+
+    // Mark this task as asynchronous.
+    var done = this.async();
 
     // Iterate over all specified file targets.
     this.files.forEach(function(f) {
@@ -44,19 +51,23 @@ module.exports = function(grunt) {
         return sections;
       }, {});
 
-      // Compile the Swig template.
+      // Compile and render using Swig.
       var settingsTemplate = swig.compileFile('templates/settings.html');
-
-      // Render using swig.
       var output = settingsTemplate({
         sections: sections
       });
 
-      // Write the destination file.
-      grunt.file.write(f.dest, output);
+      // Tidy using HTMLTidy.
+      tidy(output, options, function(err, tidiedOutput) {
+        // Write the destination file.
+        grunt.file.write(f.dest, tidiedOutput);
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+        // Print a success message.
+        grunt.log.writeln('File "' + f.dest + '" created.');
+
+        // Mark asynchronous task as done.
+        done();
+      });
     });
   });
 

@@ -28,7 +28,8 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "swig": "~1.4.1"
+    "swig": "~1.4.1",
+    "htmltidy": "~0.0.6"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.9.2",
