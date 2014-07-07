@@ -87,15 +87,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-v0.2.0:
-  date: 2014-07-07
-  changes:
-    - New features (subsection repeat, titleless subsection).
-v0.1.2:
-  date: 2014-07-06
-  changes:
-    - Bugfixes.
-v0.1.0:
-  date: 2014-07-05
-  changes:
-    - Initial release.
+* 2014-07-07   v0.2.0   New features (subsection repeat, titleless subsection).
+* 2014-07-06   v0.1.2   Bugfixes.
+* 2014-07-05   v0.1.0   Initial release.
+
+---
+
+Task submitted by [Gavin Ballard](http://gavinballard.com)
