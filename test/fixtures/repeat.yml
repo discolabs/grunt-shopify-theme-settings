@@ -1,0 +1,26 @@
+---
+Slides:
+
+  Slide {i}:
+    repeat: [1, 2, 3]
+
+    Show Slide {i}?:
+      name: slide_{i}_show
+      type: checkbox
+
+    Slide {i} Image:
+      name: slide_{i}_image.jpg
+      type: file
+
+Boxes:
+
+  "{i} Box":
+    repeat: [Top, Middle, Bottom, Top Right]
+
+    Show {i} Box?:
+      name: box_{i}_show
+      type: checkbox
+
+    "{i} Box Content":
+      name: box_{i}_content
+      type: text-multi

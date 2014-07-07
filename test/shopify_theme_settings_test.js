@@ -20,5 +20,14 @@ exports.shopify_theme_settings = {
     test.equal(actual, expected, 'settings.html file generated correctly when using glob.');
 
     test.done();
+  },
+  compileWithRepeat: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test-repeat.html');
+    var expected = grunt.file.read('test/expected/test-repeat.html');
+    test.equal(actual, expected, 'Repeat functionality worked.');
+
+    test.done();
   }
 };

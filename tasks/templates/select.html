@@ -1,4 +1,4 @@
-<select id="{{ field.name }}" name="{{ field.name }}">
+<select id="{{ field_name }}" name="{{ field_name }}">
   {% for option in field.options %}
   <option value="{{ loop.key }}">{{ option | escape }}</option>
   {% endfor %}

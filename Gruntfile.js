@@ -41,6 +41,12 @@ module.exports = function(grunt) {
         files: {
           'tmp/test-glob.html': ['test/fixtures/*.yml']
         }
+      },
+      compileWithRepeat: {
+        options: {},
+        files: {
+          'tmp/test-repeat.html': 'test/fixtures/repeat.yml'
+        }
       }
     },
 

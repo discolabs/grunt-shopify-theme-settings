@@ -19,7 +19,10 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       indent: true,
-      doctype: 'omit'
+      indentSpaces: 4,
+      wrap: 0,
+      doctype: 'omit',
+      showBodyOnly: true
     });
 
     // Mark this task as asynchronous.
