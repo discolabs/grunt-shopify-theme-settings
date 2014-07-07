@@ -8,10 +8,12 @@
       {% set subsection_name = loop.key %}
 
       {% for i in subsection.repeat | default([1]) %}
+        {% if not (subsection.notitle | default(false)) %}
         <h3>{{ subsection_name | replace('{i}', i) | escape }}</h3>
+        {% endif %}
         <table>
             {% for field in subsection %}
-              {% if loop.key != 'repeat' %}
+              {% if loop.key != 'repeat' and loop.key != 'notitle' %}
                 {% set field_name = field.name | replace('{i}', i) | replace('\s', '_') | lower %}
                 {% set field_label = loop.key | replace('{i}', i) %}
                 <tr>

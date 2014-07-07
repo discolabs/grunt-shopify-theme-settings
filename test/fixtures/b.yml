@@ -32,6 +32,7 @@ Typography:
       type: font
 
   Disclaimers:
+    notitle: true
 
     Disclaimer:
       name: disclaimer
