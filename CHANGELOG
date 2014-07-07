@@ -1,3 +1,7 @@
+v0.2.0:
+  date: 2014-07-07
+  changes:
+    - New features (subsection repeat, titleless subsection).
 v0.1.2:
   date: 2014-07-06
   changes:
