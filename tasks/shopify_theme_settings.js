@@ -18,10 +18,11 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('shopify_theme_settings', 'Grunt plugin to build a settings.html file for Shopify themes.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
+      docType: 'strict',
+      outputXhtml: true,
       indent: true,
       indentSpaces: 4,
       wrap: 0,
-      doctype: 'omit',
       showBodyOnly: true
     });
 
