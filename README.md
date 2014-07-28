@@ -87,7 +87,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-* 2014-07-09   v0.2.1   Bugfixes.
+* 2014-07-28   v0.2.2   Bugfixes.
+* 2014-07-09   v0.2.1   Bugfixes.s
 * 2014-07-07   v0.2.0   New features (subsection repeat, titleless subsection).
 * 2014-07-06   v0.1.2   Bugfixes.
 * 2014-07-05   v0.1.0   Initial release.
