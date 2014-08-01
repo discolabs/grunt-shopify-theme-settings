@@ -33,13 +33,13 @@ module.exports = function(grunt) {
       compileSpecific: {
         options: {},
         files: {
-          'tmp/test-specific.html': ['test/fixtures/c.yml', 'test/fixtures/a.yml']
+          'tmp/test-specific.html': ['test/fixtures/test_c.yml', 'test/fixtures/test_a.yml']
         }
       },
       compileGlob: {
         options: {},
         files: {
-          'tmp/test-glob.html': ['test/fixtures/*.yml']
+          'tmp/test-glob.html': ['test/fixtures/test_*.yml']
         }
       },
       compileWithRepeat: {
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         files: {
           'tmp/test-repeat.html': 'test/fixtures/repeat.yml'
         }
-      }
+      },
     },
 
     // Unit tests.
