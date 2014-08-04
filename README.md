@@ -196,6 +196,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2014-08-04   v0.2.3   README update.
 * 2014-07-28   v0.2.2   Bugfixes.
 * 2014-07-09   v0.2.1   Bugfixes.
 * 2014-07-07   v0.2.0   New features (subsection repeat, titleless subsection).
