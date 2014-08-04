@@ -2,6 +2,17 @@
 
 > Grunt plugin to build a settings.html file for Shopify themes.
 
+This plugin greatly simplifies the management of the `settings.html` file common to all Shopify themes. It provides:
+
+- The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
+- Breaking up of settings into multiple files for easier management;
+- Shorthand syntax for Shopify theme setting features like help text blocks, specifying image dimensions, and to simplify
+  the generation of repeated settings.
+
+For more, you can [read the blog post]() introducing the plugin. For usage examples, check out the tests in this
+repository.
+
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -17,19 +28,20 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-shopify-theme-settings');
 ```
 
+
 ## The "shopify_theme_settings" task
 
 ### Overview
 In your project's Gruntfile, add a section named `shopify_theme_settings` to the data object passed into `grunt.initConfig()`.
+You file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the
+order you'd like them to appear in the final settings file.
 
 ```js
 grunt.initConfig({
   shopify_theme_settings: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    options: {},
+    settings: {
+      'theme/config/settings.html': ['settings/section1.yml', 'settings/section2.yml']
     },
   },
 });
@@ -37,50 +49,148 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+Currently, this task has zero options of its own.
 
-A string value that is used to do something with whatever.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+## YAML Structure
 
-A string value that is used to do something else with whatever else.
+The general format for the YAML files read by the plugin are as such:
 
-### Usage Examples
+```yaml
+Section Name:
+  Subsection Name:
+    Field 1 Name:
+      name: name_of_field_1
+      type: type_of_field_1
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  shopify_theme_settings: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+    Field 2 Name:
+      name: name_of_field_2
+      type: type_of_field_2
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+Each `.yml` file should contain one or more `Section`s, each of which can contain one or more `Subsection`s. Each of
+these subsections can contain in turn as many `Field`s as desired.
 
-```js
-grunt.initConfig({
-  shopify_theme_settings: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+### `Field`
+
+Each `Field` section corresponds to a single theme setting - a color, a text input, a file. Aside from the text label
+that declares it, each `Field` sectional has a couple of required properties, and some optional properties.
+
+#### `name`: Text (Required)
+The `name` of the `Field` should be unique across all of your settings. It's the value that will be used for the field's
+name and ID attributes in the HTML, and will be the name you use to access the setting from within your Shopify templates.
+For example, `name: my_field` would be accessed as `{{ settings.my_field }}` in your `.liquid` files.
+
+#### `type`: Text (Required)
+Every `Field` must have a `type` set. All of the input types supported by Shopify's Admin are allowed, which are:
+
+- `text-single` (A single-line text box)
+- `text-multi` (A multi-line text area)
+- `select` (A dropdown select box)
+- `file` (A filepicker)
+- `checkbox` (A checkbox)
+- `color` (A colorpicker)
+- `font` (A dropdown containing a list of web-safe fonts)
+- `blog` (A dropdown containing all store blogs)
+- `collection` (A dropdown containing all store collections)
+- `linklist` (A dropdown containing all store linklists)
+- `page` (A dropdown containing all store pages)
+- `snippet` (A dropdown containing all store snippets)
+
+#### `help`: Text (Optional)
+Setting the optional `help` property will render the provided text underneath the field in the final `settings.html`.
+Useful for adding instructions or clarifying image dimensions.
+
+#### `options`: Hash (Optional, `select` and `font` types only)
+Specifies a list of options to render in the field's `<select>` element. The key-value pairs are provided as a hash,
+for example:
+
+```yml
+Appearance and Fonts:
+
+  Background:
+
+    Background Style:
+      name: background_style
+      type: select
+      options:
+        none: None
+        color: Custom Color
+        image: Custom Image
 ```
+
+For the `font` field type, any specified options will be added to those automatically generated by Shopify.
+
+#### `width`: Integer (Optional, `file` type only)
+Specify a maximum width for an uploaded file. See [Shopify's documentation]() for more information.
+
+#### `height`: Integer (Optional, `file` type only)
+Specify a maximum height for an uploaded file. See [Shopify's documentation]() for more information.
+
+#### `cols`: Integer (Optional, `text-multi` type only)
+Specify the number of columns to render for the `<textarea>` element.
+
+#### `rows`: Integer (Optional, `text-multi` type only)
+Specify the number of rows to render for the `<textarea>` element.
+
+### `Subsection`
+
+`Subsection`s are used to create subgroups of fields within a larger overall `Section`. Currently, all `Field`s must
+live inside a `Subsection`.
+
+Beyond their name, you can declare two other interesting properties on `Subsection`s, `notitle` and `repeat`.
+
+#### `notitle`: Boolean (Optional)
+Setting `notitle` as `true` on a subsection will prevent the name of the `Subsection` being rendered in the Shopify Admin.
+
+#### `repeat`: Array (Optional)
+The `repeat` property can be used to avoid having to copy-paste the same fields multiple times. This is common in theme
+settings, for example when providing users with fields to customise a home page slider. You may want to allow users to
+upload up to five slides, with an optional title and caption for each slide. Instead of copy-pasting the required fields
+three times, the `repeat` property allows you to just specify a list of index values and the corresponding fields will
+be rendered in the final `settings.html`.
+
+For example, setting `repeat: [1, 2, 3]` will render all `Field`s in the repeated section three times, with "index" values
+of `1`, `2` and `3`. You can also use strings, for example `repeat: [Top, Middle, Bottom]`.
+
+When using the `repeat` property, the names and labels of the repeated `Field` objects should have the string `{i}` in
+their title, which will be replaced with the current index for each iteration. See the example below and in the tests
+for examples.
+
+Here's an example YAML file showing the usage of both `notitle` and `repeat`.
+
+```yml
+My Section:
+  My Subsection:
+    notitle: true
+
+    My Field:
+      name: my_field
+      type: text-single
+
+  Slide {i}:
+    repeat: [1, 2, 3, 4, 5]
+
+    Slide {i} Image:
+      name: slide_{i}_image.jpg
+      type: file
+
+    Slide {i} Title:
+      name: slide_{i}_title
+      type: text-single
+
+    Slide {i} Caption:
+      name: slide_{i}_caption
+      type: text-multi
+```
+
+### `Section`
+
+`Section`s correspond to the large expandable panels displayed in the Shopify Admin when viewing theme settings. They're
+generally used to group related theme settings by topic (such as "Colors & Fonts") or by area of concern (such as "Footer").
+
+`Section`s are the top-level object in the parsed YAML files and have no attributes beyond their name.
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
