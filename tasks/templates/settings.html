@@ -14,7 +14,7 @@
         <table>
             {% for field in subsection %}
               {% if loop.key != 'repeat' and loop.key != 'notitle' %}
-                {% set field_name = field.name | replace('{i}', i) | replace('\s', '_') | lower %}
+                {% set field_name = field.name | replace('{i}', i) | replace('\s', '_', 'g') | lower %}
                 {% set field_label = loop.key | replace('{i}', i) %}
                 <tr>
                   <th>
