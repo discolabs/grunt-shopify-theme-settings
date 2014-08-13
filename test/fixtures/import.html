@@ -1,0 +1,63 @@
+<fieldset>
+  <legend>Appearance &amp; Fonts</legend>
+
+  <h3>Background</h3>
+  <table>
+    <tr>
+      <td><label for="body_background_image">Background Image</label></td>
+      <td>
+        <select name="body_background_image" id="body_background_image">
+          <option value="none">No Image</option>
+          <option value="custom_background_image">Use Custom Image</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <input type="file" id="custom_background_image" name="custom_background_image"  />
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="body_background_x">Background Horizontal Position</label></td>
+      <td>
+        <select id="body_background_x" name="body_background_x">
+          <option value="0%">Left</option>
+          <option value="50%">Center</option>
+          <option value="100%">Right</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="body_background_y">Background Vertical Position</label></td>
+      <td>
+        <select id="body_background_y" name="body_background_y">
+          <option value="0%">Top</option>
+          <option value="50%">Center</option>
+          <option value="100%">Bottom</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="body_background_repeat">Background Tiling</label></td>
+      <td>
+        <select name="body_background_repeat">
+          <option value="no-repeat">Don't Tile</option>
+          <option value="repeat">Tile</option>
+          <option value="repeat-x">Tile Horizontally</option>
+          <option value="repeat-y">Tile Vertically</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="body_background_color">Background Color</label></td>
+      <td>
+        <input id="body_background_color" name="body_background_color" class="color" value="#FFFFFF" />
+      </td>
+    </tr>
+  </table>
