@@ -9,6 +9,7 @@
 'use strict';
 var tidy = require('htmltidy').tidy;
 var cheerio = require('cheerio');
+var yaml = require('js-yaml');
 
 module.exports = function(grunt) {
 
@@ -58,7 +59,7 @@ module.exports = function(grunt) {
       grunt.log.writeln(JSON.stringify(sections));
 
       // Write the output.
-      grunt.file.write(exportFile, '');
+      grunt.file.write(exportFile, yaml.safeDump(sections));
 
       // Print a success message and mark the asynchronous task as done.
       grunt.log.writeln('File "' + exportFile + '" created.');
