@@ -65,8 +65,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  // For testing, set the importFile option as if it was set on the command line.
+  // For testing, set the importFile and exportFile options as if they was set on the command line.
   grunt.option('importFile', 'test/fixtures/import.html');
+  grunt.option('exportFile', 'tmp/import.yml');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
