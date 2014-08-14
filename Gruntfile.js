@@ -28,7 +28,7 @@ module.exports = function(grunt) {
       tests: ['tmp']
     },
 
-    // Configuration to be run (and then tested).
+    // Configuration for testing the `shopify_theme_settings` task.
     shopify_theme_settings: {
       compileSpecific: {
         options: {},
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         files: {
           'tmp/test-repeat.html': 'test/fixtures/repeat.yml'
         }
-      },
+      }
     },
 
     // Unit tests.
@@ -65,9 +65,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
+  // For testing, set the importFile and exportFile options as if they was set on the command line.
+  grunt.option('importFile', 'test/fixtures/import.html');
+  grunt.option('exportFile', 'tmp/import.yml');
+
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'shopify_theme_settings', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'shopify_theme_settings', 'shopify_import_theme_settings', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

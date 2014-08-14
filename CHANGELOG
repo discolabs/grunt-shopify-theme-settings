@@ -1,3 +1,7 @@
+v0.3.0:
+  date: 2014-08-14
+  changes:
+    - Add settings importer.
 v0.2.4:
   date: 2014-08-09
   changes:

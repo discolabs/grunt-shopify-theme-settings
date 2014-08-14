@@ -12,9 +12,6 @@ var tidy = require('htmltidy').tidy;
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
-
   grunt.registerMultiTask('shopify_theme_settings', 'Grunt plugin to build a settings.html file for Shopify themes.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
