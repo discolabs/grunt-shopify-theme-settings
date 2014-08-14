@@ -40,8 +40,13 @@ module.exports = function(grunt) {
       return false;
     }
 
+    // Set up options to pass to HTMLTidy.
+    var tidyOptions = {
+      wrap: 0
+    };
+
     // Read and tidy the input HTML for consistency.
-    tidy(grunt.file.read(importFile), {}, function(err, html) {
+    tidy(grunt.file.read(importFile), tidyOptions, function(err, html) {
 
       // Check to see if there were any errors tidying the HTML.
       if(err) {
@@ -54,9 +59,6 @@ module.exports = function(grunt) {
 
       // Extract sections from the parsed HTML.
       var sections = getSections($);
-
-      //
-      grunt.log.writeln(JSON.stringify(sections));
 
       // Write the output.
       grunt.file.write(exportFile, yaml.safeDump(sections));
@@ -105,13 +107,16 @@ module.exports = function(grunt) {
     $fieldset.children('table').each(function(i) {
       var $table            = $(this),
           subsectionName    = getSubsectionNameFromTable($, $table),
-          subsectionFields  = getSubsectionFieldsFromTable($, $table);
+          subsectionFields  = {};
 
       // If we couldn't extract a name from the subsection, generate one and mark the title as hidden.
       if(!subsectionName) {
-        subsectionName = 'Untitled Subsection #' + i;
+        subsectionName = 'Untitled Subsection #' + (i + 1);
         subsectionFields.notitle = true;
       }
+
+      // Add any extracted fields to the fields hash.
+      addSubsectionFieldsFromTable($, subsectionFields, $table);
 
       subsections[subsectionName] = subsectionFields;
     });
@@ -132,10 +137,133 @@ module.exports = function(grunt) {
   }
 
   /**
-   * Extract the fields for this subsection from the given $table.
+   * Extract the fields for this subsection from the given $table and add
+   * them to the given fields object.
    */
-  function getSubsectionFieldsFromTable($, $table) {
-    return {};
+  function addSubsectionFieldsFromTable($, fields, $table) {
+    // Iterate through each input inside the table.
+    $table.find(':input').each(function(i) {
+      var $input      = $(this),
+          fieldLabel  = getFieldLabelFromInput($, $input);
+
+      // If we couldn't extract a label from the field, generate one.
+      if(!fieldLabel) {
+        fieldLabel = 'Untitled Field #' + (i + 1);
+      }
+
+      fields[fieldLabel] = getFieldData($, $input);
+    });
+
+    return fields;
+  }
+
+  /**
+   * Extract the field label from the given $input.
+   */
+  function getFieldLabelFromInput($, $input) {
+    // Try and find a <label> element in the same row.
+    var $label = $input.closest('tr').find('label');
+    if($label.length === 0) {
+      return null;
+    }
+    return $label.first().text();
+  }
+
+  /**
+   * Extract field information from the given $input.
+   */
+  function getFieldData($, $input) {
+    var fieldData = {};
+
+    var fieldName = $input.attr('name');
+    fieldData['name'] = fieldName;
+
+    var fieldType = getFieldType($, $input);
+    fieldData['type'] = fieldType;
+
+    var fieldHelp = getFieldHelp($, $input);
+    if(fieldHelp) {
+      fieldData['help'] = fieldHelp;
+    }
+
+    // Add options for select and font types.
+    if(fieldType === 'select' || fieldType === 'font') {
+      fieldData['options'] = getFieldOptions($, $input);
+    }
+
+    // Add width/height for file types.
+    if(fieldType === 'file') {
+      if($input.data('maxWidth')) {
+        fieldData['width'] = $input.data('maxWidth');
+      }
+      if($input.data('maxHeight')) {
+        fieldData['height'] = $input.data('maxHeight');
+      }
+    }
+
+    // Add cols/rows for text-multi types.
+    if(fieldType === 'text-multi') {
+      if($input.attr('cols')) {
+        fieldData['cols'] = $input.attr('cols');
+      }
+      if($input.attr('rows')) {
+        fieldData['rows'] = $input.attr('rows');
+      }
+    }
+
+    return fieldData;
+  }
+
+  /**
+   * Get the field type of the passed $input.
+   */
+  function getFieldType($, $input) {
+    // Check for simple properties that determine type.
+    if($input.is('textarea')) { return 'text-multi'; }
+    if($input.is('[type="checkbox"]')) { return 'checkbox'; }
+    if($input.is('[type="file"]')) { return 'file'; }
+
+    // Check for <select>-based inputs.
+    if($input.is('select')) {
+      if($input.hasClass('font')) { return 'font'; }
+      if($input.hasClass('blog')) { return 'blog'; }
+      if($input.hasClass('collection')) { return 'collection'; }
+      if($input.hasClass('linklist')) { return 'linklist'; }
+      if($input.hasClass('page')) { return 'page'; }
+      if($input.hasClass('snippet')) { return 'snippet'; }
+      return 'select';
+    }
+
+    // Text-based inputs.
+    if($input.hasClass('color')) { return 'color'; }
+
+    return 'text-single';
+  }
+
+  /**
+   * Try to extract any help text for the given field.
+   */
+  function getFieldHelp($, $input) {
+    // Try and find a <small> element in the same row.
+    var $small = $input.closest('tr').find('small');
+    if($small.length === 0) {
+      return null;
+    }
+    return $small.first().html();
+  }
+
+  /**
+   * Get the options for a field.
+   */
+  function getFieldOptions($, $input) {
+    var options = {};
+
+    $input.find('option').each(function() {
+      var $option = $(this);
+      options[$option.attr('value')] = $option.text();
+    });
+
+    return options;
   }
 
 };
