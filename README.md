@@ -7,10 +7,11 @@ This plugin greatly simplifies the management of the `settings.html` file common
 - The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
 - Breaking up of settings into multiple files for easier management;
 - Shorthand syntax for Shopify theme setting features like help text blocks, specifying image dimensions, and to simplify
-  the generation of repeated settings.
+  the generation of repeated settings;
+- Functionality to simplify converting your existing `settings.html` to a cleaner `settings.yml`.
 
-For more, you can [read the blog post]() introducing the plugin. For usage examples, check out the tests in this
-repository.
+For more, you can [read the blog post](http://gavinballard.com/managing-shopifys-settings-html/) introducing the plugin.
+For usage examples, check out the tests in this repository.
 
 
 ## Getting Started
@@ -42,6 +43,20 @@ grunt.initConfig({
     options: {},
     settings: {
       'theme/config/settings.html': ['settings/section1.yml', 'settings/section2.yml']
+    },
+  },
+});
+```
+
+If you're okay with the sections in your settings appearing in directory order, you can just use a glob to specify the
+input files:
+
+```js
+grunt.initConfig({
+  shopify_theme_settings: {
+    options: {},
+    settings: {
+      'theme/config/settings.html': 'settings/*.yml'
     },
   },
 });
@@ -191,11 +206,32 @@ generally used to group related theme settings by topic (such as "Colors & Fonts
 Sections are the top-level object in the parsed YAML files and have no attributes beyond their name.
 
 
+## Converting existing settings files
+
+To make the transition to using this plugin easier, this plugin includes an import/export task that reads your existing
+`settings.html` file and does its best to convert it to a `settings.yml` file suitable for the `shopify_theme_settings`
+task.
+
+To convert your old settings, just run the following command from your Grunt directory:
+
+```shell
+grunt shopify_import_theme_settings --importFile=/path/to/settings.html --exportFile=/path/to/settings.yml
+```
+
+The import tool will detect your setting file's inputs, sections and headings as best it can, but note that due to the
+wide variety of possible markup, it may miss some non-standard layouts. If you're having trouble importing your
+`settings.html` correctly, please [raise an issue](https://github.com/discolabs/grunt-shopify-theme-settings/issues).
+
+The conversion tool also outputs all of your settings into one `.yml` file - you might want to split it up into multiple
+sections to improve manageability.
+
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 
+* 2014-08-14   v0.3.0   Add settings importer.
 * 2014-08-09   v0.2.4   Bugfixes.
 * 2014-08-04   v0.2.3   README update.
 * 2014-07-28   v0.2.2   Bugfixes.
