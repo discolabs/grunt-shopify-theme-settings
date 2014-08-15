@@ -205,6 +205,22 @@ generally used to group related theme settings by topic (such as "Colors & Fonts
 
 Sections are the top-level object in the parsed YAML files and have no attributes beyond their name.
 
+There's one special-case section name: `about`, which instead of the regular Section YAML should have a HTML string as
+its value. The content of this string will be rendered into a simple `<div>` element in your final `settings.html`,
+which is useful for adding credits and instructions at the top of your theme's settings file.
+
+Here's an example, using the YAML's pipe (`|`) syntax for multi-line strings:
+
+```yml
+---
+about: |
+  <p>Welcome to our theme!</p>
+  <p>Get support <a href="mailto:help@example.com">here</a>.</p>
+
+Main Section:
+...remaining YAML...
+```
+
 
 ## Converting existing settings files
 

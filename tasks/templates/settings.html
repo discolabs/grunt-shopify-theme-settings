@@ -1,40 +1,46 @@
 {% for section in sections %}
   {% set section_name = loop.key %}
 
-  <fieldset>
-    <legend>{{ loop.key | escape }}</legend>
+  {% if section_name == 'about' %}
+    <div>
+      {{ section }}
+    </div>
+  {% else %}
+    <fieldset>
+      <legend>{{ loop.key | escape }}</legend>
 
-    {% for subsection in section %}
-      {% set subsection_name = loop.key %}
+      {% for subsection in section %}
+        {% set subsection_name = loop.key %}
 
-      {% for i in subsection.repeat | default([1]) %}
-        {% if not (subsection.notitle | default(false)) %}
-        <h3>{{ subsection_name | replace('{i}', i) | escape }}</h3>
-        {% endif %}
-        <table>
-            {% for field in subsection %}
-              {% if loop.key != 'repeat' and loop.key != 'notitle' %}
-                {% set field_name = field.name | replace('{i}', i) | replace('\s', '_', 'g') | lower %}
-                {% set field_label = loop.key | replace('{i}', i) %}
-                <tr>
-                  <th>
-                    <label for="{{ field_name }}">{{ field_label | escape }}</label>
-                  </th>
-                  <td>
-                    {% set field_template = field.type + ".html" %}
-                    {% include field_template %}
-                  </td>
-                </tr>
-                {% if field.help %}
-                <tr>
-                  <th></th>
-                  <td><small>{{ field.help | replace('{i}', i) }}</small></td>
-                </tr>
+        {% for i in subsection.repeat | default([1]) %}
+          {% if not (subsection.notitle | default(false)) %}
+          <h3>{{ subsection_name | replace('{i}', i) | escape }}</h3>
+          {% endif %}
+          <table>
+              {% for field in subsection %}
+                {% if loop.key != 'repeat' and loop.key != 'notitle' %}
+                  {% set field_name = field.name | replace('{i}', i) | replace('\s', '_', 'g') | lower %}
+                  {% set field_label = loop.key | replace('{i}', i) %}
+                  <tr>
+                    <th>
+                      <label for="{{ field_name }}">{{ field_label | escape }}</label>
+                    </th>
+                    <td>
+                      {% set field_template = field.type + ".html" %}
+                      {% include field_template %}
+                    </td>
+                  </tr>
+                  {% if field.help %}
+                  <tr>
+                    <th></th>
+                    <td><small>{{ field.help | replace('{i}', i) }}</small></td>
+                  </tr>
+                  {% endif %}
                 {% endif %}
-              {% endif %}
-            {% endfor %}
-        </table>
+              {% endfor %}
+          </table>
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
-  </fieldset>
+    </fieldset>
+  {% endif %}
 {% endfor %}
