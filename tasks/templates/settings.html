@@ -3,7 +3,7 @@
 
   {% if section_name == 'about' %}
     <div>
-      {{ section }}
+      {{ section | safe }}
     </div>
   {% else %}
     <fieldset>
@@ -33,7 +33,7 @@
                   {% if field.help %}
                   <tr>
                     <th></th>
-                    <td><small>{{ field.help | replace('{i}', i) }}</small></td>
+                    <td><small>{{ field.help | replace('{i}', i) | safe }}</small></td>
                   </tr>
                   {% endif %}
                 {% endif %}
