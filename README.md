@@ -205,17 +205,19 @@ generally used to group related theme settings by topic (such as "Colors & Fonts
 
 Sections are the top-level object in the parsed YAML files and have no attributes beyond their name.
 
-There's one special-case section name: `about`, which instead of the regular Section YAML should have a HTML string as
-its value. The content of this string will be rendered into a simple `<div>` element in your final `settings.html`,
-which is useful for adding credits and instructions at the top of your theme's settings file.
+There's one special-case section name: `about`, which instead of the regular Section YAML should have a `heading` and
+`content` properties. These will render as a small `<div>` section, which is useful for adding credits and instructions
+at the top of your theme's settings file.
 
 Here's an example, using the YAML's pipe (`|`) syntax for multi-line strings:
 
 ```yml
 ---
-about: |
-  <p>Welcome to our theme!</p>
-  <p>Get support <a href="mailto:help@example.com">here</a>.</p>
+about:
+  heading: Theme by <a href="http://gavinballard.com">Gavin Ballard</a>
+  content: |
+    <p>Welcome to this theme!</p>
+    <p>Get support <a href="mailto:gavin@gavinballard.com">here</a>.</p>
 
 Main Section:
 ...remaining YAML...
@@ -247,7 +249,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-* 2014-08-15   v0.3.1   Minor improvements.
+* 2014-08-15   v0.3.2   Minor improvements.
 * 2014-08-14   v0.3.0   Add settings importer.
 * 2014-08-09   v0.2.4   Bugfixes.
 * 2014-08-04   v0.2.3   README update.

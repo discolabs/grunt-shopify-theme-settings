@@ -1,7 +1,7 @@
 {
   "name": "grunt-shopify-theme-settings",
   "description": "Grunt plugin to build a settings.html file for Shopify themes.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/discolabs/grunt-shopify-theme-settings",
   "author": {
     "name": "Gavin Ballard",

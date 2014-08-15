@@ -2,8 +2,13 @@
   {% set section_name = loop.key %}
 
   {% if section_name == 'about' %}
-    <div>
-      {{ section | safe }}
+    <div class="section-info">
+      {% if section.heading %}
+      <h3 class="heading">{{ section.heading|safe }}</h3>
+      {% endif %}
+      {% if section.content %}
+      {{ section.content|safe }}
+      {% endif %}
     </div>
   {% else %}
     <fieldset>

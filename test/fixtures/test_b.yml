@@ -1,7 +1,9 @@
 ---
-about: |
-  <p>Welcome to our theme!</p>
-  <p>Get support <a href="mailto:help@example.com">here</a>.</p>
+about:
+  heading: Theme by <a href="http://gavinballard.com">Gavin Ballard</a>
+  content: |
+    <p>Welcome to this theme!</p>
+    <p>Get support <a href="mailto:help@example.com">here</a>.</p>
 
 Navigation:
 
