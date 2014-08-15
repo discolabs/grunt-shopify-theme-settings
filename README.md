@@ -247,6 +247,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2014-08-15   v0.3.1   Minor improvements.
 * 2014-08-14   v0.3.0   Add settings importer.
 * 2014-08-09   v0.2.4   Bugfixes.
 * 2014-08-04   v0.2.3   README update.
