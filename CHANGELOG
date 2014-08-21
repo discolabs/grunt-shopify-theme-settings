@@ -1,3 +1,8 @@
+v0.3.3:
+  date: 2014-08-21
+  changes:
+    - Add `hide_label` setting for all field.
+    - Add `inline_label` setting for checkboxes.
 v0.3.2:
   date: 2014-08-14
   changes:

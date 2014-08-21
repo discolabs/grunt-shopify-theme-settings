@@ -256,6 +256,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2014-08-21   v0.3.3   Add `hide_label` and `inline_label` settings.
 * 2014-08-15   v0.3.2   Minor improvements.
 * 2014-08-14   v0.3.0   Add settings importer.
 * 2014-08-09   v0.2.4   Bugfixes.
