@@ -148,6 +148,9 @@ Specify the number of columns to render for the `<textarea>` element.
 ##### `rows`: Integer (Optional, `text-multi` type only)
 Specify the number of rows to render for the `<textarea>` element.
 
+##### `inline_label`: String (Optional, `checkbox` type only)
+Specify a text string to be used as a label directly next to the checkbox element.
+
 ### Subsections
 
 Subsections are used to create subgroups of fields within a larger overall section. Currently, all fields *must* live
