@@ -23,3 +23,4 @@ Appearance and Fonts:
     Repeat Backgound Image?:
       name: background_image_repeat
       type: checkbox
+      inline_label: "Yes"
