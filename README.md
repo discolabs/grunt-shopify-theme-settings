@@ -116,6 +116,10 @@ Every field must have a `type` set. All of the input types supported by Shopify'
 Setting the optional `help` property will render the provided text underneath the field in the final `settings.html`.
 Useful for adding instructions or clarifying image dimensions.
 
+##### `hide_label`: Boolean (Optional, defaults to `false`)
+If `true`, the label rendered on the left-hand side for the settings will be hidden.
+Mostly useful for `checkbox` fields with an `inline_label` set.
+
 ##### `options`: Hash (Optional, `select` and `font` types only)
 Specifies a list of options to render in the field's `<select>` element. The key-value pairs are provided as a hash,
 for example:

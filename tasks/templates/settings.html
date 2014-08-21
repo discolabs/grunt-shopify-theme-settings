@@ -28,7 +28,9 @@
                   {% set field_label = loop.key | replace('{i}', i) %}
                   <tr>
                     <th>
+                      {% if not (field.hide_label | default(false))  %}
                       <label for="{{ field_name }}">{{ field_label | escape }}</label>
+                      {% endif %}
                     </th>
                     <td>
                       {% set field_template = field.type + ".html" %}
