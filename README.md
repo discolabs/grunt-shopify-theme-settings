@@ -40,11 +40,13 @@ order you'd like them to appear in the final settings file.
 ```js
 grunt.initConfig({
   shopify_theme_settings: {
-    options: {},
-    files: {
-      'theme/config/settings.html': ['settings/section1.yml', 'settings/section2.yml']
-    },
-  },
+    settings: {
+      options: {},
+      files: {
+        'theme/config/settings.html': ['settings/section1.yml', 'settings/section2.yml']
+      }
+    }
+  }
 });
 ```
 
@@ -54,11 +56,13 @@ input files:
 ```js
 grunt.initConfig({
   shopify_theme_settings: {
-    options: {},
-    files: {
-      'theme/config/settings.html': 'settings/*.yml'
-    },
-  },
+    settings: {
+      options: {},
+      files: {
+        'theme/config/settings.html': 'settings/*.yml'
+      }
+    }
+  }
 });
 ```
 
