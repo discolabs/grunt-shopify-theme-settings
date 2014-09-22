@@ -1,8 +1,13 @@
+v0.3.4:
+  date: 2014-09-22
+  changes:
+    - Add `default` property for text fields.
+    - Add import for `default` property.
 v0.3.3:
   date: 2014-08-21
   changes:
-    - Add `hide_label` setting for all field.
-    - Add `inline_label` setting for checkboxes.
+    - Add `hide_label` property for all fields.
+    - Add `inline_label` property for checkboxes.
 v0.3.2:
   date: 2014-08-14
   changes:
