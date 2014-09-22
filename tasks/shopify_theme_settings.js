@@ -20,7 +20,8 @@ module.exports = function(grunt) {
       indent: true,
       indentSpaces: 4,
       wrap: 0,
-      showBodyOnly: true
+      showBodyOnly: true,
+      dropEmptyElements: false
     });
 
     // Mark this task as asynchronous.
