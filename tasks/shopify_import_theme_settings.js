@@ -191,6 +191,14 @@ module.exports = function(grunt) {
       fieldData['options'] = getFieldOptions($, $input);
     }
 
+    // Add default for text-single and text-multi types, if present.
+    if(fieldType === 'text-single' || fieldType === 'text-multi') {
+      var fieldDefault = getFieldDefault($, $input);
+      if(fieldDefault) {
+        fieldData['default'] = fieldDefault;
+      }
+    }
+
     // Add width/height for file types.
     if(fieldType === 'file') {
       if($input.data('maxWidth')) {
@@ -264,6 +272,13 @@ module.exports = function(grunt) {
     });
 
     return options;
+  }
+
+  /**
+   * Get the options for a field.
+   */
+  function getFieldDefault($, $input) {
+    return $input.val();
   }
 
 };
