@@ -263,6 +263,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2014-09-22   v0.3.5   Don't drop empty tags when tidying; permits empty `<option>` tags.
 * 2014-09-22   v0.3.4   Add `default` attribute.
 * 2014-08-21   v0.3.3   Add `hide_label` and `inline_label` attributes.
 * 2014-08-15   v0.3.2   Minor improvements.
