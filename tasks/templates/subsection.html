@@ -1,0 +1,29 @@
+{% if not (subsection.notitle | default(false)) %}
+    <h3>{{ subsection_name | replace('{i}', i) | escape }}</h3>
+{% endif %}
+
+<table>
+    {% for field in subsection %}
+        {% if loop.key != 'repeat' and loop.key != 'notitle' %}
+        {% set field_name = field.name | replace('{i}', i) | replace('\s', '_', 'g') | lower %}
+        {% set field_label = loop.key | replace('{i}', i) %}
+        <tr>
+            <th>
+                {% if not (field.hide_label | default(false)) %}
+                    <label for="{{ field_name }}">{{ field_label | escape }}</label>
+                {% endif %}
+            </th>
+            <td>
+                {% set field_template = field.type + ".html" %}
+                {% include field_template %}
+            </td>
+        </tr>
+        {% if field.help %}
+        <tr>
+            <th></th>
+            <td><small>{{ field.help | replace('{i}', i) | safe }}</small></td>
+        </tr>
+        {% endif %}
+        {% endif %}
+  {% endfor %}
+</table>
