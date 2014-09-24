@@ -6,8 +6,7 @@ This plugin greatly simplifies the management of the `settings.html` file common
 
 - The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
 - Breaking up of settings into multiple files for easier management;
-- Shorthand syntax for Shopify theme setting features like help text blocks, specifying image dimensions, and to simplify
-  the generation of repeated settings;
+- Shorthand syntax for Shopify theme setting features like help text blocks, specifying image dimensions, and to simplify the generation of repeated settings;
 - Functionality to simplify converting your existing `settings.html` to a cleaner `settings.yml`.
 
 For more, you can [read the blog post](http://gavinballard.com/managing-shopifys-settings-html/) introducing the plugin.
@@ -34,8 +33,7 @@ grunt.loadNpmTasks('grunt-shopify-theme-settings');
 
 ### Overview
 In your project's Gruntfile, add a section named `shopify_theme_settings` to the data object passed into `grunt.initConfig()`.
-You file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the
-order you'd like them to appear in the final settings file.
+You file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the order you'd like them to appear in the final settings file.
 
 ```js
 grunt.initConfig({
@@ -50,8 +48,7 @@ grunt.initConfig({
 });
 ```
 
-If you're okay with the sections in your settings appearing in directory order, you can just use a glob to specify the
-input files:
+If you're okay with the sections in your settings appearing in directory order, you can just use a glob to specify the input files:
 
 ```js
 grunt.initConfig({
@@ -68,7 +65,14 @@ grunt.initConfig({
 
 ### Options
 
-Currently, this task doesn't have any options.
+This task accepts only a single option, `includes`, as documented below.
+
+#### includes
+Type: `Array`
+Default: `[]`
+
+Specify a list of alternative directories to load HTML templates from if using your own custom templates.
+See the section [Customising templates](#customising-templates) for more.
 
 
 ## YAML Structure
@@ -87,20 +91,28 @@ Section Name:
       type: type_of_field_2
 ```
 
-Each `.yml` file should contain one or more **Sections**, each of which can contain one or more **Subsections**. Each of
-these subsections can contain in turn as many **Fields** as desired.
+Each `.yml` file should contain one or more **Sections**, each of which can contain one or more **Subsections**.
+Each of these subsections can contain in turn as many **Fields** as desired.
 
 ### Fields
 
-Each field section corresponds to a single theme setting - a color, a text input, a file. Aside from the text label
-that declares it, each field has a couple of required properties, and some optional properties.
+Each field section corresponds to a single theme setting - a color, a text input, a file.
+Aside from the text label that declares it, each field has a couple of required properties, and some optional properties, as listed below.
 
-##### `name`: Text (Required)
-The `name` of the field should be unique across all of your settings. It's the value that will be used for the field's
-name and ID attributes in the HTML, and will be the name you use to access the setting from within your Shopify templates.
+#### name
+Type: `Text`
+Required: Yes
+Applies to: All field types
+
+The `name` of the field should be unique across all of your settings.
+It's the value that will be used for the field's name and ID attributes in the HTML, and will be the name you use to access the setting from within your Shopify templates.
 For example, `name: my_field` would be accessed as `{{ settings.my_field }}` in your `.liquid` files.
 
-##### `type`: Text (Required)
+##### type
+Type: `Text`
+Required: Yes
+Applies to: All field types
+
 Every field must have a `type` set. All of the input types supported by Shopify's Admin are allowed, which are:
 
 - `text-single` (A single-line text box)
@@ -116,17 +128,32 @@ Every field must have a `type` set. All of the input types supported by Shopify'
 - `page` (A dropdown containing all store pages)
 - `snippet` (A dropdown containing all store snippets)
 
-##### `help`: Text (Optional)
+If you'd like, you can create your own custom field types.
+See the section [Customising templates](#customising-templates) for more.
+
+##### help
+Type: `Text`
+Required: No
+Applies to: All field types
+
 Setting the optional `help` property will render the provided text underneath the field in the final `settings.html`.
 Useful for adding instructions or clarifying image dimensions.
 
-##### `hide_label`: Boolean (Optional, defaults to `false`)
+##### hide_label
+Type: `Boolean`
+Required: No (defaults to `false`)
+Applies to: All field types
+
 If `true`, the label rendered on the left-hand side for the settings will be hidden.
 Mostly useful for `checkbox` fields with an `inline_label` set.
 
-##### `options`: Hash (Optional, `select` and `font` types only)
-Specifies a list of options to render in the field's `<select>` element. The key-value pairs are provided as a hash,
-for example:
+#### options
+Type: `Hash`
+Required: No
+Applies to: `select` and `font` types only
+
+Specifies a list of options to render in the field's `<select>` element.
+The key-value pairs are provided as a hash, for example:
 
 ```yml
 Appearance and Fonts:
@@ -144,48 +171,91 @@ Appearance and Fonts:
 
 For the `font` field type, any specified options will be added to those automatically generated by Shopify.
 
-##### `default`: Text (Optional, `text-single` and `text-multi` types only)
-Specify a default value to populate a field with (note that this only works for text inputs).
+##### default
+Type: `Text`
+Required: No
+Applies to: `text-single` and `text-multi` types only
 
-##### `width`: Integer (Optional, `file` type only)
-Specify a maximum width for an uploaded file. See [Shopify's documentation](http://docs.shopify.com/themes/theme-development/templates/settings#input-types) for more information.
+Specify a default value to populate a text field with.
 
-##### `height`: Integer (Optional, `file` type only)
-Specify a maximum height for an uploaded file. See [Shopify's documentation](http://docs.shopify.com/themes/theme-development/templates/settings#input-types) for more information.
+##### width
+Type: `Integer`
+Required: No
+Applies to: `file` type only
 
-##### `cols`: Integer (Optional, `text-multi` type only)
+Specify a maximum width for an uploaded file. If not specified, no limit will be applied.
+See [Shopify's documentation](http://docs.shopify.com/themes/theme-development/templates/settings#input-types) for more information.
+
+##### height
+Type: `Integer`
+Required: No
+Applies to: `file` type only
+
+Specify a maximum height for an uploaded file. If not specified, no limit will be applied.
+See [Shopify's documentation](http://docs.shopify.com/themes/theme-development/templates/settings#input-types) for more information.
+
+##### cols: Integer
+Type: `Integer`
+Required: No
+Applies to: `text-multi` type only
+
 Specify the number of columns to render for the `<textarea>` element.
 
-##### `rows`: Integer (Optional, `text-multi` type only)
+##### rows: Integer
+Type: `Integer`
+Required: No
+Applies to: `text-multi` type only
+
 Specify the number of rows to render for the `<textarea>` element.
 
-##### `inline_label`: Text (Optional, `checkbox` type only)
+##### inline_label
+Type: `Text`
+Required: No
+Applies to: `checkbox` type only
+
 Specify a text string to be used as a label directly next to the checkbox element.
 
 ### Subsections
 
-Subsections are used to create subgroups of fields within a larger overall section. Currently, all fields *must* live
-inside a subsection.
+Subsections are used to create subgroups of fields within a larger overall section.
+All fields *must* live inside a subsection.
 
-Beyond their name, you can declare two other interesting properties on subsections: `notitle` and `repeat`.
+Beyond specifying their name, subsections have a few other optional properties.
 
-##### `notitle`: Boolean (Optional)
-Setting `notitle` as `true` on a subsection will prevent the name of the subsection being rendered in the Shopify Admin.
+##### notitle
+Type: `Boolean`
+Required: No (defaults to `false`)
+Applies to: All subsections
 
-##### `repeat`: Array (Optional)
-The `repeat` property can be used to avoid having to copy-paste the same fields multiple times. This is common in theme
-settings, for example when providing users with fields to customise a home page slider. You may want to allow users to
-upload up to five slides, with an optional title and caption for each slide. Instead of copy-pasting the required fields
-three times, the `repeat` property allows you to just specify a list of index values and the corresponding fields will
-be rendered in the final `settings.html`.
+Setting `notitle` as `true` on a subsection will prevent the name of that subsection being rendered in the Shopify Admin.
 
-For example, setting `repeat: [1, 2, 3]` will render all fields in the repeated section three times, with "index" values
-of `1`, `2` and `3`. You can also use strings, for example `repeat: [Top, Middle, Bottom]`.
+##### repeat
+Type: `Array`
+Required: No
+Applies to: All subsections
 
-When using the `repeat` property, the names and labels of the repeated field objects should contain the string `{i}`,
-which will be replaced with the current index for each iteration. See the example below and in the tests for examples.
+The `repeat` property can be used to avoid having to copy-paste the same fields multiple times.
+This is common in theme settings, for example when providing users with fields to customise a home page slider.
+You may want to allow users to upload up to five slides, with an optional title and caption for each slide.
+Instead of copy-pasting the required fields three times, the `repeat` property allows you to just specify a list of index values and the corresponding fields will be rendered in the final `settings.html`.
 
-Here's an example YAML file showing the usage of both `notitle` and `repeat`.
+For example, setting `repeat: [1, 2, 3]` will render all fields in the repeated section three times, with "index" values of `1`, `2` and `3`.
+You can also use strings, for example `repeat: [Top, Middle, Bottom]`.
+
+When using the `repeat` property, the names and labels of the repeated field objects should contain the string `{i}`, which will be replaced with the current index for each iteration.
+See the example below and in the tests for examples.
+
+##### template
+Type: `Text`
+Required: No
+Applies to: All subsections
+
+If you'd like to use a custom HTML template to render your subsection, you can specify its name with the `template` property.
+See [Customising templates](#customising-templates) for more.
+
+---
+
+Here's an example YAML file showing the usage of the `notitle`, `repeat` and `template` subsection properties.
 
 ```yml
 My Section:
@@ -198,6 +268,7 @@ My Section:
 
   Slide {i}:
     repeat: [1, 2, 3, 4, 5]
+    template: subsection-slide
 
     Slide {i} Image:
       name: slide_{i}_image.jpg
@@ -214,14 +285,23 @@ My Section:
 
 ### Sections
 
-Sections correspond to the large expandable panels displayed in the Shopify Admin when viewing theme settings. They're
-generally used to group related theme settings by topic (such as "Colors & Fonts") or by area of concern (such as "Footer").
+Sections correspond to the large expandable panels displayed in the Shopify Admin when viewing theme settings.
+They're generally used to group related theme settings by topic (such as "Colors & Fonts") or by area of concern (such as "Footer").
 
-Sections are the top-level object in the parsed YAML files and have no attributes beyond their name.
+Sections are the top-level object in the parsed YAML files and have only one (optional) configurable property: the template used to render them.
 
-There's one special-case section name: `about`, which instead of the regular Section YAML should have a `heading` and
-`content` properties. These will render as a small `<div>` section, which is useful for adding credits and instructions
-at the top of your theme's settings file.
+##### template
+Type: `Text`
+Required: No
+Applies to: All sections
+
+As with subsections, you can use a custom HTML template to render your entire section, specified with the `template` property.
+See [Customising templates](#customising-templates) for more.
+
+---
+
+There's one special-case section name: `about`, which instead of the regular Section YAML should have a `heading` and `content` properties.
+These will render as a small `<div>` section, which is useful for adding credits and instructions at the top of your theme's settings file.
 
 Here's an example, using the YAML's pipe (`|`) syntax for multi-line strings:
 
@@ -236,6 +316,10 @@ about:
 Main Section:
 ...remaining YAML...
 ```
+
+## Customising templates
+
+TBD.
 
 
 ## Converting existing settings files
