@@ -15,7 +15,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('shopify_theme_settings', 'Grunt plugin to build a settings.html file for Shopify themes.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      includes: [],
+      templates: [],
       tidyOptions: {
         docType: 'strict',
         outputXhtml: true,
@@ -58,9 +58,9 @@ module.exports = function(grunt) {
 
       // If we have a specified include path, use a specialised filesystem loader for Swig templates that tries to load
       // from our specified include directory first, then falls back to the default loader.
-      if(options.includes.length) {
-        options.includes.push('');
-        swig.setDefaults({ loader: fsMultipleDirectoryLoader(options.includes) });
+      if(options.templates.length) {
+        options.templates.push('');
+        swig.setDefaults({ loader: fsMultipleDirectoryLoader(options.templates) });
       }
 
       // Compile the template using Swig.
