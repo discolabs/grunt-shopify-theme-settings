@@ -9,6 +9,7 @@ This plugin greatly simplifies the management of the `settings.html` file common
 - The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
 - Breaking up of settings into multiple files for easier management;
 - Shorthand syntax for Shopify theme setting features like help text blocks, specifying image dimensions, and to simplify the generation of repeated settings;
+- Ability to create custom templates for different fields and sections of your settings files;
 - Functionality to simplify converting your existing `settings.html` to a cleaner `settings.yml`.
 
 For more, you can [read the blog post](http://gavinballard.com/managing-shopifys-settings-html/) introducing the plugin.
