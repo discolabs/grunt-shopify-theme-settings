@@ -122,9 +122,7 @@ module.exports = function(grunt) {
 
       // Return the first candidate that exists.
       for(var i = 0, l = candidates.length; i < l; i++) {
-        grunt.log.writeln('test', candidates[i]);
         if(grunt.file.isFile(candidates[i])) {
-          grunt.log.writeln('return', candidates[i]);
           return candidates[i];
         }
       }

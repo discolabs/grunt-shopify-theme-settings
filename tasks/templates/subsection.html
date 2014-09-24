@@ -14,7 +14,7 @@
                 {% endif %}
             </th>
             <td>
-                {% set field_template = field.type + ".html" %}
+                {% set field_template = field.template | default(field.type) + ".html" %}
                 {% include field_template %}
             </td>
         </tr>
