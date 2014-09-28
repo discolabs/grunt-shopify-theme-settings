@@ -220,6 +220,15 @@ Applies to: `checkbox` type only
 
 Specify a text string to be used as a label directly next to the checkbox element.
 
+#### repeat
+Type: `Array`  
+Required: No  
+Applies to: All field types
+
+The `repeat` property can be used to avoid having to copy-paste the configuration for similar fields multiple times.
+See [Repeating sections and fields](#repeating-sections-and-fields) for more.
+
+
 #### template
 Type: `Text`  
 Required: No  
@@ -249,16 +258,8 @@ Type: `Array`
 Required: No  
 Applies to: All subsections
 
-The `repeat` property can be used to avoid having to copy-paste the same fields multiple times.
-This is common in theme settings, for example when providing users with fields to customise a home page slider.
-You may want to allow users to upload up to five slides, with an optional title and caption for each slide.
-Instead of copy-pasting the required fields three times, the `repeat` property allows you to just specify a list of index values and the corresponding fields will be rendered in the final `settings.html`.
-
-For example, setting `repeat: [1, 2, 3]` will render all fields in the repeated section three times, with "index" values of `1`, `2` and `3`.
-You can also use strings, for example `repeat: [Top, Middle, Bottom]`.
-
-When using the `repeat` property, the names and labels of the repeated field objects should contain the string `{i}`, which will be replaced with the current index for each iteration.
-See the example below and in the tests for examples.
+The `repeat` property can be used to avoid having to copy-paste the configuration for similar sections multiple times.
+See [Repeating sections and fields](#repeating-sections-and-fields) for more.
 
 #### template
 Type: `Text`  
@@ -334,6 +335,110 @@ Main Section:
 ...remaining YAML...
 ```
 
+
+## Repeating sections and fields
+
+It's quite common in Shopify theme setting to want to repeat particular fields, or groups of fields (sections) multiple times.
+For example, many themes offer users the ability to customise a slider or carousel, which requires similar configuration (image, title, caption, et cetera) for each slide.
+Here's a simple example of what we'd need to do if we wanted three slides:
+
+```yml
+---
+Homepage Slider:
+    
+  Slide 1:
+    Slide 1 Image:
+      name: slide_1_image.jpg
+      type: file
+
+    Slide 1 Title:
+      name: slide_1_title
+      type: text-single
+      
+  Slide 2:
+    Slide 2 Image:
+      name: slide_2_image.jpg
+      type: file
+
+    Slide 2 Title:
+      name: slide_2_title
+      type: text-single
+      
+  Slide 3:
+    Slide 3 Image:
+      name: slide_3_image.jpg
+      type: file
+
+    Slide 3 Title:
+      name: slide_3_title
+      type: text-single  
+```
+
+Instead of having to copy-paste the YAML as above to configure these slides, you can simply specify the `repeat` property on the sections or fields you'd like to duplicate.
+Using the `repeat` property, the above becomes:
+
+```yml
+---
+Homepage Slider:
+    
+  Slide {i}:
+    repeat: [1, 2, 3]
+    
+    Slide {i} Image:
+      name: slide_{i}_image.jpg
+      type: file
+
+    Slide {i} Title:
+      name: slide_{i}_title
+      type: text-single
+```
+
+When this configuration is rendered, the specified section will be output once for each item in the `repeat` list, with any instances of the string `{i}` replaced with the list value.
+You're also not just limited to integers; you can also use the `repeat` property with strings:
+ 
+```yml
+---
+Navbars:
+    
+  {i} Navbar:
+    repeat: [Top, Bottom]
+    
+    {i} Navbar visible?:
+      name: {i}_navbar_visible
+      type: checkbox
+
+    {i} Navbar color:
+      name: {i}_navbar_color
+      type: color
+```
+
+When using string values like this, the string will be converted to lowercase and any whitespace will be replaced with an underscore.
+
+Finally, if you only want to repeat a specific field a number of times, rather than an entire section of fields, you can specify the `repeat` property directly on the field itself.
+This works exactly the same as with repeated sections, except that to avoid conflicts you should use the string `{f}` where you'd like the current index to be rendered.
+ 
+This lets you use repeated sections and fields at the same time, if you'd like:
+ 
+```yml
+---
+Navbars:
+    
+  {i} Navbar:
+    repeat: [Top, Bottom]
+    
+    {i} Navbar visible?:
+      name: {i}_navbar_visible
+      type: checkbox
+
+    {i} Navbar color:
+      name: {i}_navbar_color
+      type: color
+      
+    {i} Navbar link number {f}:
+      repeat: [1, 2, 3]
+      name: {i}_navbar_link_{f}
+      type: text-single
+``` 
 
 
 ## Customising templates
