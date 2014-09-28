@@ -1,0 +1,17 @@
+<tr>
+    <th>
+        {% if not (field.hide_label | default(false)) %}
+            <label for="{{ field_name }}">{{ field_label | escape }}</label>
+        {% endif %}
+    </th>
+    <td>
+        {% set input_template = field.type + ".html" %}
+        {% include input_template %}
+    </td>
+</tr>
+{% if field.help %}
+<tr>
+    <th></th>
+    <td><small>{{ field_help | safe }}</small></td>
+</tr>
+{% endif %}

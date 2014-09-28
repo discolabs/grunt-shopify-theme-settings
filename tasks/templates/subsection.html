@@ -1,29 +1,22 @@
 {% if not (subsection.notitle | default(false)) %}
-    <h3>{{ subsection_name | replace('{i}', i) | escape }}</h3>
+<h3>{{ subsection_name | escape }}</h3>
 {% endif %}
 
 <table>
     {% for field in subsection %}
         {% if loop.key != 'repeat' and loop.key != 'notitle' and loop.key != 'template' %}
-        {% set field_name = field.name | replace('{i}', i) | replace('\s', '_', 'g') | lower %}
-        {% set field_label = loop.key | replace('{i}', i) %}
-        <tr>
-            <th>
-                {% if not (field.hide_label | default(false)) %}
-                    <label for="{{ field_name }}">{{ field_label | escape }}</label>
-                {% endif %}
-            </th>
-            <td>
-                {% set field_template = field.template | default(field.type) + ".html" %}
+
+            {% set field_label_raw = loop.key %}
+            {% set field_template = field.template | default("field") + ".html" %}
+
+            {% for f in field.repeat | default([1]) %}
+                {% set field_label = field_label_raw | replace('{i}', i) | replace('{f}', f) %}
+                {% set field_name = field.name | replace('{i}', i) | replace('{f}', f) | replace('\s', '_', 'g') | lower %}
+                {% set field_help = field.help | replace('{i}', i) | replace('{f}', f) %}
+
                 {% include field_template %}
-            </td>
-        </tr>
-        {% if field.help %}
-        <tr>
-            <th></th>
-            <td><small>{{ field.help | replace('{i}', i) | safe }}</small></td>
-        </tr>
-        {% endif %}
+            {% endfor %}
+
         {% endif %}
   {% endfor %}
 </table>

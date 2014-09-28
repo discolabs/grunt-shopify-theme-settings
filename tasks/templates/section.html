@@ -1,20 +1,17 @@
 <fieldset>
-    <legend>{{ loop.key | escape }}</legend>
+    <legend>{{ section_name | escape }}</legend>
 
     {% for subsection in section %}
-        {#
-            Set the name of the current subsection and the template to use to render it.
-            The default template is "subsection.html".
-        #}
-        {% set subsection_name = loop.key %}
-        {% set subsection_template = subsection.template | default("subsection") + ".html" %}
+        {% if loop.key != 'template' %}
 
-        {#
-            Iterate over the "repeat" property for this subsection the number of times specified.
-            On each iteration, populate some variables to be made available to the template.
-        #}
-        {% for i in subsection.repeat | default([1]) %}
-            {% include subsection_template %}
-        {% endfor %}
+            {% set subsection_name_raw = loop.key %}
+            {% set subsection_template = subsection.template | default("subsection") + ".html" %}
+
+            {% for i in subsection.repeat | default([1]) %}
+                {% set subsection_name = subsection_name_raw | replace('{i}', i) %}
+                {% include subsection_template %}
+            {% endfor %}
+    
+        {% endif %}
     {% endfor %}
 </fieldset>
