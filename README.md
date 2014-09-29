@@ -576,6 +576,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2014-09-29   v0.4.2   Minor template bugfix.
+* 2014-09-28   v0.4.1   Add support for field `repeat`.
 * 2014-09-24   v0.4.0   Add support for custom templates.
 * 2014-09-22   v0.3.5   Don't drop empty tags when tidying; permits empty `<option>` tags.
 * 2014-09-22   v0.3.4   Add `default` attribute.

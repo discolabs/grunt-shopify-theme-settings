@@ -1,3 +1,11 @@
+v0.4.2:
+  date: 2014-09-29
+  changes:
+    - Minor template bugfix.
+v0.4.1:
+  date: 2014-09-28
+  changes:
+    - Add support for field `repeat`.
 v0.4.0:
   date: 2014-09-24
   changes:
