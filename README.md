@@ -548,6 +548,8 @@ In the example above, the first field will be rendered using our custom `placeho
 You can create custom templates not only for fields, but for subsections and sections too.
 Just remember that the best way to start with your custom templates is with a copy of the existing [core template](https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates). 
 
+[Swig](http://paularmstrong.github.io/swig/) is used when rendering the templates, so anything you can do in Swig you can do in your templates!
+The best way to start is probably to read through the templates that ship with the plugin to get an idea of what's possible. 
 
 
 ## Converting existing settings files
