@@ -9,6 +9,7 @@
 'use strict';
 var swig = require('swig');
 var tidy = require('htmltidy').tidy;
+var fs = require('fs');
 
 module.exports = function(grunt) {
 
@@ -98,6 +99,9 @@ module.exports = function(grunt) {
   function fsMultipleDirectoryLoader(basepaths, encoding) {
     var ret = {}, loaders;
 
+    // Ensure we have an encoding defined.
+    encoding = encoding || 'utf8';
+
     // Ensure we have something in our basepaths, and that it's an array.
     if(!basepaths || !basepaths.length) {
       basepaths = [''];
@@ -119,7 +123,7 @@ module.exports = function(grunt) {
       var candidates = loaders.map(function(loader) {
         return loader.resolve(to, from);
       });
-
+            
       // Return the first candidate that exists.
       for(var i = 0, l = candidates.length; i < l; i++) {
         if(grunt.file.isFile(candidates[i])) {
@@ -128,8 +132,31 @@ module.exports = function(grunt) {
       }
     };
 
-    // Pass the template loader load() method off to the default Swig filesystem loader load() method.
-    ret.load = loaders[0].load;
+    /**
+     * Load a given template.
+     * 
+     * This loader is identical to the default filesystem loader, but is required so that our custom resolve() method
+     * can be used within it.
+     *
+     * See https://github.com/paularmstrong/swig/blob/master/lib/loaders/filesystem.js.
+     * 
+     * @param identifier
+     * @param cb
+     * @returns {*}
+     */
+    ret.load = function(identifier, cb) {
+      if (!fs || (cb && !fs.readFile) || !fs.readFileSync) {
+        throw new Error('Unable to find file ' + identifier + ' because there is no filesystem to read from.');
+      }
+
+      identifier = ret.resolve(identifier);
+
+      if(cb) {
+        fs.readFile(identifier, encoding, cb);
+        return;
+      }
+      return fs.readFileSync(identifier, encoding);
+    };
 
     return ret;
   }
