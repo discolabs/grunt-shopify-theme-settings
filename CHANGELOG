@@ -1,3 +1,7 @@
+v0.4.4:
+  date: 2014-10-01
+  changes:
+    - Yet another bugfix for custom templates.
 v0.4.3:
   date: 2014-10-01
   changes:

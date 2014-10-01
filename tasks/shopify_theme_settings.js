@@ -9,7 +9,8 @@
 'use strict';
 var swig = require('swig');
 var tidy = require('htmltidy').tidy;
-var fs = require('fs');
+var temp = require('temp');
+var path = require('path');
 
 module.exports = function(grunt) {
 
@@ -57,18 +58,20 @@ module.exports = function(grunt) {
         return sections;
       }, {});
 
-      // If we have a specified include path, use a specialised filesystem loader for Swig templates that tries to load
-      // from our specified include directory first, then falls back to the default loader.
+      // Default path to the base settings template file. Only changes if we're using custom templates.
+      var templateDirectory = __dirname + '/templates/';
+
+      // If we have a specified include path, create a temporary directory and copy templates from our various sources.
       if(options.templates.length) {
-        options.templates.push('');
-        swig.setDefaults({ loader: fsMultipleDirectoryLoader(options.templates) });
+        options.templates.push(templateDirectory);
+        templateDirectory = getCombinedTemplateDirectory(options.templates);
       }
 
-      // Compile the template using Swig.
-      var settingsTemplate = swig.compileFile(__dirname + '/templates/settings.html');
+      // Compile the settings.html template using Swig.
+      var compiledTemplate = swig.compileFile(path.join(templateDirectory, 'settings.html'));
 
       // Execute (render) our compiled template.
-      var output = settingsTemplate({
+      var output = compiledTemplate({
         sections: sections
       });
 
@@ -87,78 +90,29 @@ module.exports = function(grunt) {
   });
 
   /**
-   * Define a simple customer filesystem loader for Swig templates that can resolve from multiple templates directories
-   * in order of precedence.
+   * Given a list of template directories, compile them into a single template directory.
+   * Templates with the same name will be overridden, with preference given to those first in the list.
    *
-   * See: http://paularmstrong.github.io/swig/docs/loaders/#custom
-   *
-   * @param basepaths
-   * @param encoding
-   * @returns {{}}
+   * @param templateDirectories
+   * @return string
    */
-  function fsMultipleDirectoryLoader(basepaths, encoding) {
-    var ret = {}, loaders;
+  function getCombinedTemplateDirectory(templateDirectories) {
+    // Automatically track and clean up files at exit.
+    temp.track();
 
-    // Ensure we have an encoding defined.
-    encoding = encoding || 'utf8';
+    // Create a temporary directory to hold our template files.
+    var combinedTemplateDirectory = temp.mkdirSync('templates');
 
-    // Ensure we have something in our basepaths, and that it's an array.
-    if(!basepaths || !basepaths.length) {
-      basepaths = [''];
-    }
-
-    // Create a loader for each basepath.
-    loaders = basepaths.map(function(basepath) {
-      return swig.loaders.fs(basepath, encoding);
+    // Copy templates from our source directories into the combined directory.
+    templateDirectories.reverse().forEach(function(templateDirectory) {
+      grunt.file.expand(path.join(templateDirectory, '*.html')).forEach(function(srcPath) {
+        var srcFilename = path.basename(srcPath),
+            destPath = path.join(combinedTemplateDirectory, srcFilename);
+        grunt.file.copy(srcPath, destPath);
+      });
     });
 
-    /**
-     * Resolve to a path for the given template.
-     *
-     * @param to
-     * @param from
-     * @returns {*}
-     */
-    ret.resolve = function(to, from) {
-      var candidates = loaders.map(function(loader) {
-        return loader.resolve(to, from);
-      });
-            
-      // Return the first candidate that exists.
-      for(var i = 0, l = candidates.length; i < l; i++) {
-        if(grunt.file.isFile(candidates[i])) {
-          return candidates[i];
-        }
-      }
-    };
-
-    /**
-     * Load a given template.
-     * 
-     * This loader is identical to the default filesystem loader, but is required so that our custom resolve() method
-     * can be used within it.
-     *
-     * See https://github.com/paularmstrong/swig/blob/master/lib/loaders/filesystem.js.
-     * 
-     * @param identifier
-     * @param cb
-     * @returns {*}
-     */
-    ret.load = function(identifier, cb) {
-      if (!fs || (cb && !fs.readFile) || !fs.readFileSync) {
-        throw new Error('Unable to find file ' + identifier + ' because there is no filesystem to read from.');
-      }
-
-      identifier = ret.resolve(identifier);
-
-      if(cb) {
-        fs.readFile(identifier, encoding, cb);
-        return;
-      }
-      return fs.readFileSync(identifier, encoding);
-    };
-
-    return ret;
+    return combinedTemplateDirectory;
   }
 
 };

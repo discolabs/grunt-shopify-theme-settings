@@ -578,6 +578,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+* 2014-10-01   v0.4.4   Yet another bugfix for custom templates.
 * 2014-10-01   v0.4.3   Major bugfix for custom template loader.
 * 2014-09-29   v0.4.2   Minor template bugfix.
 * 2014-09-28   v0.4.1   Add support for field `repeat`.
