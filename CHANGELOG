@@ -1,3 +1,7 @@
+v0.4.5:
+  date: 2014-10-01
+  changes:
+    - Fix missing `temp` dependency.
 v0.4.4:
   date: 2014-10-01
   changes:
