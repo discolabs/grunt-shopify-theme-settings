@@ -1,7 +1,7 @@
 {
   "name": "grunt-shopify-theme-settings",
   "description": "Grunt plugin to build a settings.html file for Shopify themes.",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "homepage": "https://github.com/discolabs/grunt-shopify-theme-settings",
   "author": {
     "name": "Gavin Ballard",
@@ -31,7 +31,8 @@
     "swig": "~1.4.1",
     "htmltidy": "~0.0.6",
     "cheerio": "~0.17.0",
-    "js-yaml": "~3.1.0"
+    "js-yaml": "~3.1.0",
+    "temp": "~0.8.1"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.9.2",
