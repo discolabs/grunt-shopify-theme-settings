@@ -591,7 +591,10 @@ sections to improve manageability.
 
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+In lieu of a formal styleguide, take care to maintain the existing coding style.
+Add unit tests for any new or changed functionality. Lint and test your code using [Grunt][].
+
+[Grunt]: http://gruntjs.com/
 
 
 ## Release History
@@ -617,6 +620,19 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ---
 
-Task submitted by [Gavin Ballard][]
+#### About the Author
 
+[Gavin Ballard][] is a developer at [Disco][], specialising in Shopify development.
+Related projects:
+
+- [Shopify Theme Scaffold][]
+- [Cart.js][]
+- [Bootstrap for Shopify][]
+- [Mastering Shopify Themes][]
+
+[Shopify Theme Scaffold]: https://github.com/discolabs/shopify-theme-scaffold
+[Cart.js]: http://cartjs.org/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
+[Bootstrap for Shopify]: http://bootstrapforshopify.com/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
+[Mastering Shopify Themes]: http://gavinballard.com/mastering-shopify-themes/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
 [Gavin Ballard]: http://gavinballard.com/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
+[Disco]: http://discolabs.com/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
