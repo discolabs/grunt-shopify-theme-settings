@@ -3,7 +3,6 @@
 > Grunt plugin to build a settings.html file for Shopify themes.
 
 
-
 This plugin greatly simplifies the management of the `settings.html` file common to all Shopify themes. It provides:
 
 - The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
@@ -12,15 +11,17 @@ This plugin greatly simplifies the management of the `settings.html` file common
 - Ability to create custom templates for different fields and sections of your settings files;
 - Functionality to simplify converting your existing `settings.html` to a cleaner `settings.yml`.
 
-For more, you can [read the blog post](http://gavinballard.com/managing-shopifys-settings-html/) introducing the plugin.
+For more, you can [read the blog post][] introducing the plugin.
 For usage examples, check out the tests in this repository.
 
+[read the blog post]: http://gavinballard.com/managing-shopifys-settings-html/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
 
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [Gruntfile][] as well as install and use Grunt plugins.
+Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-shopify-theme-settings --save-dev
@@ -32,6 +33,9 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-shopify-theme-settings');
 ```
 
+[Grunt]: http://gruntjs.com/
+[Getting Started]: http://gruntjs.com/getting-started
+[Gruntfile]: http://gruntjs.com/sample-gruntfile
 
 
 ## The "shopify_theme_settings" task
@@ -77,7 +81,9 @@ Type: `Array`
 Default: `[]`
 
 Specify a list of alternative directories to load HTML templates from if using your own custom templates.
-See the section [Customising templates](#customising-templates) for more.
+See the section [Customising templates][] for more.
+
+[Customising templates]: #customising-templates
 
 
 ## YAML Structure
@@ -189,7 +195,7 @@ Required: No
 Applies to: `file` type only
 
 Specify a maximum width for an uploaded file. If not specified, no limit will be applied.
-See [Shopify's documentation](http://docs.shopify.com/themes/theme-development/templates/settings#input-types) for more information.
+See [Shopify's input type documentation][] for more information.
 
 #### height
 Type: `Integer`  
@@ -197,7 +203,7 @@ Required: No
 Applies to: `file` type only
 
 Specify a maximum height for an uploaded file. If not specified, no limit will be applied.
-See [Shopify's documentation](http://docs.shopify.com/themes/theme-development/templates/settings#input-types) for more information.
+See [Shopify's input type documentation][] for more information.
 
 #### cols
 Type: `Integer`  
@@ -226,7 +232,7 @@ Required: No
 Applies to: All field types
 
 The `repeat` property can be used to avoid having to copy-paste the configuration for similar fields multiple times.
-See [Repeating sections and fields](#repeating-sections-and-fields) for more.
+See [Repeating sections and fields][] for more.
 
 
 #### template
@@ -235,7 +241,11 @@ Required: No
 Applies to: All field types
 
 If you'd like to use a custom HTML template to render your field, you can specify its name with the `template` property.
-See [Customising templates](#customising-templates) for more.
+See [Customising templates][] for more.
+
+[Shopify's input type documentation]: http://docs.shopify.com/themes/theme-development/templates/settings#input-types
+[Repeating sections and fields]: #repeating-sections-and-fields
+[Customising templates]: #customising-templates
 
 ---
 
@@ -259,7 +269,7 @@ Required: No
 Applies to: All subsections
 
 The `repeat` property can be used to avoid having to copy-paste the configuration for similar sections multiple times.
-See [Repeating sections and fields](#repeating-sections-and-fields) for more.
+See [Repeating sections and fields][] for more.
 
 #### template
 Type: `Text`  
@@ -267,7 +277,10 @@ Required: No
 Applies to: All subsections
 
 As with fields, if you'd like to use a custom HTML template to render your subsection, you can specify its name with the `template` property.
-See [Customising templates](#customising-templates) for more.
+See [Customising templates][] for more.
+
+[Repeating sections and fields]: #repeating-sections-and-fields
+[Customising templates]: #customising-templates
 
 ### Subsections example
 
@@ -314,7 +327,9 @@ Required: No
 Applies to: All sections
 
 As with fields and subsections, you can use a custom HTML template to render your entire section, specified with the `template` property.
-See [Customising templates](#customising-templates) for more.
+See [Customising templates][] for more.
+
+[Customising templates]: #customising-templates
 
 ### Special Sections
 
@@ -450,8 +465,10 @@ This is possible through the use of custom HTML templates, which can be specifie
 To do this, you just need to tell the Grunt task which directory (or directories) it should search for your custom templates.
 This is done through the `templates` task option.
 
-If a directory you specify has the same name as one of the [core templates](https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates), your custom template will take precedence.
+If a directory you specify has the same name as one of the [core templates][], your custom template will take precedence.
 If you'd prefer not to override an existing template, but want to use a custom template for a particular field, subsection, or section, just give your template a different name and specify it through the `template` property on the relevant field, subsection or section. 
+
+[core templates]: https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates
 
 ### Example: Overriding a core template
 
@@ -472,17 +489,15 @@ Next, let's save the modified template in to our project.
 Assuming we have a `settings` directory containing the `.yml` files being used to generate our final HTML file, we can create a `templates` subdirectory and add our `text-multi.html` template, like so:   
 
 ```
-.
-+-- Gruntfile.js
-+
-+-- settings
-    +-- templates
-        +-- text-multi.html
-    +-- section1.yml
-    +-- section2.yml
-    +-- section3.yml
-+-- theme
-    +-- ... theme files ...
+├─ Gruntfile.js
+├─ settings
+│  ├─ templates
+│  │  └─ text-multi.html
+│  ├─ section1.yml
+│  ├─ section2.yml
+│  └─ section3.yml
+├─ theme
+│  └─ ... theme files ...
 ```
 
 Now we just need to tell our Grunt task to look in this directory for templates with the `templates` option:
@@ -514,17 +529,15 @@ To achieve this, we'd take what we've already done and just make some slight cha
 First, instead of overriding the `text-multi.html` template, we'd give it a slightly different, non-conflicting name, like `placeholder-text-multi.html`:
 
 ```
-.
-+-- Gruntfile.js
-+
-+-- settings
-    +-- templates
-        +-- placeholder-text-multi.html
-    +-- section1.yml
-    +-- section2.yml
-    +-- section3.yml
-+-- theme
-    +-- ... theme files ...
+├─ Gruntfile.js
+├─ settings
+│  ├─ templates
+│  │  └─ placeholder-text-multi.html
+│  ├─ section1.yml
+│  ├─ section2.yml
+│  └─ section3.yml
+├─ theme
+│  └─ ... theme files ...
 ```
 
 We then just need to go through the `.yml` files and specify on each `text-multi` field whether we want to use a custom template:
@@ -546,10 +559,13 @@ My Section:
 In the example above, the first field will be rendered using our custom `placeholder-text-multi.html` template, while the second will be rendered with the default `text-multi.html` template. 
 
 You can create custom templates not only for fields, but for subsections and sections too.
-Just remember that the best way to start with your custom templates is with a copy of the existing [core template](https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates). 
+Just remember that the best way to start with your custom templates is with a copy of the existing [core template][].
 
-[Swig](http://paularmstrong.github.io/swig/) is used when rendering the templates, so anything you can do in Swig you can do in your templates!
+[Swig][] is used when rendering the templates, so anything you can do in Swig you can do in your templates!
 The best way to start is probably to read through the templates that ship with the plugin to get an idea of what's possible. 
+
+[core template]: https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates
+[Swig]: http://paularmstrong.github.io/swig/
 
 
 ## Converting existing settings files
@@ -566,15 +582,17 @@ grunt shopify_import_theme_settings --importFile=/path/to/settings.html --export
 
 The import tool will detect your setting file's inputs, sections and headings as best it can, but note that due to the
 wide variety of possible markup, it may miss some non-standard layouts. If you're having trouble importing your
-`settings.html` correctly, please [raise an issue](https://github.com/discolabs/grunt-shopify-theme-settings/issues).
+`settings.html` correctly, please [raise an issue][].
 
 The conversion tool also outputs all of your settings into one `.yml` file - you might want to split it up into multiple
 sections to improve manageability.
 
+[raise an issue]: https://github.com/discolabs/grunt-shopify-theme-settings/issues
 
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+
 
 ## Release History
 
@@ -599,4 +617,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ---
 
-Task submitted by [Gavin Ballard](http://gavinballard.com)
+Task submitted by [Gavin Ballard][]
+
+[Gavin Ballard]: http://gavinballard.com/?utm_source=github&utm_medium=readme&utm_campaign=grunt-shopify-theme-settings
