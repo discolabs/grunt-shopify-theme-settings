@@ -1,9 +1,16 @@
 ---
 Checkout:
 
-  Checkout:
+  Checkout {i}:
+    repeat: [1, 2, 3]
 
     Checkout Logo:
       name: checkout_logo.jpg
       type: file
       help: Upload a jpeg.
+      
+    Repeated Field {f}:
+      repeat: [1, 2, 3]
+      name: repeated_field_{f}_of_{i}
+      type: text-single
+      help: Help for repeated field number {f} of section number {i}.

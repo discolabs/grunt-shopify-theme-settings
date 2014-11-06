@@ -55,6 +55,14 @@ module.exports = function(grunt) {
         files: {
           'tmp/test-repeat.html': 'test/fixtures/repeat.yml'
         }
+      },
+      compileHomepageSlider: {
+        options: {
+          templates: ['test/fixtures/templates']
+        },
+        files: {
+          'tmp/test-slider.html': 'test/fixtures/slider.yml'
+        }
       }
     },
 
