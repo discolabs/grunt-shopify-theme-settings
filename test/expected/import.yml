@@ -1,0 +1,40 @@
+"Appearance & Fonts":
+  Background:
+    Background Image:
+      name: body_background_image
+      type: select
+      options:
+        none: No Image
+        custom_background_image: Use Custom Image
+    "Untitled Field #2":
+      name: custom_background_image
+      type: file
+    Background Horizontal Position:
+      name: body_background_x
+      type: select
+      options:
+        "0%": Left
+        "50%": Center
+        "100%": Right
+    Background Vertical Position:
+      name: body_background_y
+      type: select
+      options:
+        "0%": Top
+        "50%": Center
+        "100%": Bottom
+    Background Tiling:
+      name: body_background_repeat
+      type: select
+      options:
+        no-repeat: "Don't Tile"
+        repeat: Tile
+        repeat-x: Tile Horizontally
+        repeat-y: Tile Vertically
+    Background Color:
+      name: body_background_color
+      type: color
+    Background Name:
+      name: body_background_name
+      type: text-single
+      default: Default Name

@@ -28,6 +28,14 @@ module.exports = function(grunt) {
       tests: ['tmp']
     },
 
+    // Configuration for testing the `shopify_import_theme_settings` task.
+    shopify_import_theme_settings: {
+      importSettings: {
+        importFile: 'test/fixtures/import.html',
+        exportFile: 'tmp/import.yml'
+      }
+    },
+
     // Configuration for testing the `shopify_theme_settings` task.
     shopify_theme_settings: {
       compileSpecific: {
