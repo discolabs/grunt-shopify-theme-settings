@@ -590,6 +590,17 @@ sections to improve manageability.
 [raise an issue]: https://github.com/discolabs/grunt-shopify-theme-settings/issues
 
 
+## Common Issues
+
+### Spawn issue on Linux systems
+
+If you're running the task on 64-bit Linux systems, you may get a `ENOENT spawn` error.
+This is a result of the `htmltidy` Grunt plugin, which is trying to use a 32-bit binary to tidy up the generated HTML.
+See [this issue][] for more details and an easy fix.
+
+[this issue]: https://github.com/discolabs/grunt-shopify-theme-settings/issues/17
+
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 Add unit tests for any new or changed functionality. Lint and test your code using [Grunt][].
