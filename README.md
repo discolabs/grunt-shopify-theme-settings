@@ -609,25 +609,7 @@ Add unit tests for any new or changed functionality. Lint and test your code usi
 
 
 ## Release History
-
-* 2014-10-01   v0.4.5   Fix missing `temp` dependency.
-* 2014-10-01   v0.4.4   Yet another bugfix for custom templates.
-* 2014-10-01   v0.4.3   Major bugfix for custom template loader.
-* 2014-09-29   v0.4.2   Minor template bugfix.
-* 2014-09-28   v0.4.1   Add support for field `repeat`.
-* 2014-09-24   v0.4.0   Add support for custom templates.
-* 2014-09-22   v0.3.5   Don't drop empty tags when tidying; permits empty `<option>` tags.
-* 2014-09-22   v0.3.4   Add `default` attribute.
-* 2014-08-21   v0.3.3   Add `hide_label` and `inline_label` attributes.
-* 2014-08-15   v0.3.2   Minor improvements.
-* 2014-08-14   v0.3.0   Add settings importer.
-* 2014-08-09   v0.2.4   Bugfixes.
-* 2014-08-04   v0.2.3   README update.
-* 2014-07-28   v0.2.2   Bugfixes.
-* 2014-07-09   v0.2.1   Bugfixes.
-* 2014-07-07   v0.2.0   New features (subsection repeat, titleless subsection).
-* 2014-07-06   v0.1.2   Bugfixes.
-* 2014-07-05   v0.1.0   Initial release.
+Refer to the [change log](https://github.com/discolabs/grunt-shopify-theme-settings/blob/master/CHANGELOG.md) for a full list of changes.
 
 ---
 
