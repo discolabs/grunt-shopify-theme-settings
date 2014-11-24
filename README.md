@@ -8,6 +8,7 @@ This plugin greatly simplifies the management of the `settings.html` file common
 - The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
 - Breaking up of settings into multiple files for easier management;
 - Shorthand syntax for Shopify theme setting features like help text blocks, specifying image dimensions, and to simplify the generation of repeated settings;
+- Extended input types to cover things like time and date ranges;
 - Ability to create custom templates for different fields and sections of your settings files;
 - Functionality to simplify converting your existing `settings.html` to a cleaner `settings.yml`.
 
@@ -107,7 +108,9 @@ Each of these subsections can contain in turn as many **Fields** as desired.
 
 ### Fields
 
-Each field section corresponds to a single theme setting - a color, a text input, a file.
+Generally, each field section corresponds to a single theme setting - a color, a text input, a file.
+Some more advanced fields correspond to more than one setting - for example, a `time-range` input manages both a `*_begin` and `*_end` theme setting.
+
 Aside from the text label that declares it, each field has a couple of required properties, and some optional properties, as listed below.
 
 #### name
@@ -138,6 +141,10 @@ Every field must have a `type` set. All of the input types supported by Shopify'
 - `linklist` (A dropdown containing all store linklists)
 - `page` (A dropdown containing all store pages)
 - `snippet` (A dropdown containing all store snippets)
+
+A number of additional input types are provided by this plugin, which encapsulate common patterns. They are:
+
+- `time-range` (Two dropdowns to select a start and end time)
 
 If you'd like, you can create your own custom field types.
 See the section [Customising templates](#customising-templates) for more.
@@ -234,6 +241,29 @@ Applies to: All field types
 The `repeat` property can be used to avoid having to copy-paste the configuration for similar fields multiple times.
 See [Repeating sections and fields][] for more.
 
+#### begin
+Type: `String`
+Required: No
+Applies to: `time-range` type only
+
+Specify the earliest time available for selection in the `<select>` elements rendered by the `time-range` input type.
+This should be done in 24-hour `hh:mm` format, eg `"07:30"`.
+
+#### end
+Type: `String`
+Required: No
+Applies to: `time-range` type only
+
+Specify the latest time available for selection in the `<select>` elements rendered by the `time-range` input type.
+This should be done in 24-hour `hh:mm` format, eg `"17:00"`.
+
+#### step
+Type: `String`
+Required: No
+Applies to: `time-range` type only
+
+Specify the interval between each option in the `<select>` elements rendered by the `time-range` input type.
+This should be done in `00:mm` format, eg `"00:15"` will render an option for every 15 minute interval.
 
 #### template
 Type: `Text`  

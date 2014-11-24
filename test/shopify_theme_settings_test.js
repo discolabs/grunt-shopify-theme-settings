@@ -30,12 +30,12 @@ exports.shopify_theme_settings = {
 
     test.done();
   },
-  rangeHours: function(test) {
+  timeRange: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/test-range-hours.html');
-    var expected = grunt.file.read('test/expected/test-range-hours.html');
-    test.equal(actual, expected, 'Range Hours functionality worked.');
+    var actual = grunt.file.read('tmp/test-time-range.html');
+    var expected = grunt.file.read('test/expected/test-time-range.html');
+    test.equal(actual, expected, 'Time Range input functionality worked.');
 
     test.done();
   }

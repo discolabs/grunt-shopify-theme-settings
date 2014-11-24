@@ -64,9 +64,9 @@ module.exports = function(grunt) {
           'tmp/test-slider.html': 'test/fixtures/slider.yml'
         }
       },
-      rangeHours: {
+      timeRange: {
         files: {
-          'tmp/test-range-hours.html': 'test/fixtures/range-hours.yml'
+          'tmp/test-time-range.html': 'test/fixtures/time-range.yml'
         }
       }
     },

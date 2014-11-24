@@ -4,7 +4,7 @@ Business Hours:
 
     Business Hours:
       name: business_hours
-      type: range-hours
+      type: time-range
       begin: "08:30"
       end: "17:00"
       step: "00:30"

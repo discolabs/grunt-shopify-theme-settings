@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 ### Added
+- New `time-range` input type
 - This new-format CHANGELOG, based on http://keepachangelog.com
 
 ## 0.4.5 - 2014-10-01
