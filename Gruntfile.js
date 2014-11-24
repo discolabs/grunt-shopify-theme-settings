@@ -63,6 +63,11 @@ module.exports = function(grunt) {
         files: {
           'tmp/test-slider.html': 'test/fixtures/slider.yml'
         }
+      },
+      rangeHours: {
+        files: {
+          'tmp/test-range-hours.html': 'test/fixtures/range-hours.yml'
+        }
       }
     },
 
