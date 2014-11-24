@@ -1,0 +1,17 @@
+{% set range_begin = field.begin | default('00:00') | hhmm_to_seconds %}
+{% set range_end = field.end | default('23:30') | hhmm_to_seconds %}
+{% set range_step = field.step | default('00:30') | hhmm_to_seconds %}
+
+<select id="{{ field_name }}_begin" name="{{ field_name }}_begin">
+  {% for range_time in range_begin | range(range_end, range_step)  %}
+  <option value="{{ range_time }}">{{ range_time | seconds_to_hhmm }}</option>
+  {% endfor %}
+</select>
+
+&mdash;
+
+<select id="{{ field_name }}_end" name="{{ field_name }}_end">
+  {% for range_time in range_begin | range(range_end, range_step)  %}
+  <option value="{{ range_time }}">{{ range_time | seconds_to_hhmm }}</option>
+  {% endfor %}
+</select>

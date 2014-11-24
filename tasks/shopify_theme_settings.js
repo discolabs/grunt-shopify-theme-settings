@@ -115,4 +115,64 @@ module.exports = function(grunt) {
     return combinedTemplateDirectory;
   }
 
+  /**
+   * Add some custom filters to Swig for use in templates.
+   */
+  function addSwigFilters() {
+
+    /**
+     * Zero padding function.
+     * Used as both a filter and internally here.
+     *
+     * @param input
+     * @param length
+     * @returns {string}
+     */
+    function zeropad(input, length) {
+      input = input + ''; // Ensure input is a string.
+      length = length || 2; // Ensure a length is set.
+      return input.length >= length ? input : new Array(length - input.length + 1).join('0') + input;
+    }
+
+    /**
+     * Add a very simple range filter that handles integers with step = 1.
+     *
+     * @return []
+     */
+    swig.setFilter('range', function(start, stop, step) {
+      var range = [];
+      for(var i = start; i <= stop; i += step) {
+        range.push(i);
+      }
+      return range;
+    });
+
+    /**
+     * Convert a string in hh:mm format to the number of seconds after midnight it represents.
+     *
+     * @return in
+     */
+    swig.setFilter('hhmm_to_seconds', function(hhmm) {
+      var parts = hhmm.split(':');
+      return parts[0] * 60 * 60 + parts[1] * 60;
+    });
+
+    /**
+     *
+     */
+    swig.setFilter('seconds_to_hhmm', function(seconds) {
+      var date = new Date(seconds * 1000);
+      return zeropad(date.getUTCHours()) + ':' + zeropad(date.getUTCMinutes());
+    });
+
+    /**
+     * Add a filter to zero-pad the input to the given length (default 2).
+     */
+    swig.setFilter('zeropad', zeropad);
+
+  }
+
+  // Add Swig filters.
+  addSwigFilters();
+
 };
