@@ -43,7 +43,7 @@ grunt.loadNpmTasks('grunt-shopify-theme-settings');
 
 ### Overview
 In your project's Gruntfile, add a section named `shopify_theme_settings` to the data object passed into `grunt.initConfig()`.
-You file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the order you'd like them to appear in the final settings file.
+Your file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the order you'd like them to appear in the final settings file.
 
 ```js
 grunt.initConfig({
@@ -396,7 +396,7 @@ Here's a simple example of what we'd need to do if we wanted three slides:
 ```yml
 ---
 Homepage Slider:
-    
+
   Slide 1:
     Slide 1 Image:
       name: slide_1_image.jpg
@@ -405,7 +405,7 @@ Homepage Slider:
     Slide 1 Title:
       name: slide_1_title
       type: text-single
-      
+
   Slide 2:
     Slide 2 Image:
       name: slide_2_image.jpg
@@ -414,7 +414,7 @@ Homepage Slider:
     Slide 2 Title:
       name: slide_2_title
       type: text-single
-      
+
   Slide 3:
     Slide 3 Image:
       name: slide_3_image.jpg
@@ -431,10 +431,10 @@ Using the `repeat` property, the above becomes:
 ```yml
 ---
 Homepage Slider:
-    
+
   Slide {i}:
     repeat: [1, 2, 3]
-    
+
     Slide {i} Image:
       name: slide_{i}_image.jpg
       type: file
@@ -446,14 +446,14 @@ Homepage Slider:
 
 When this configuration is rendered, the specified section will be output once for each item in the `repeat` list, with any instances of the string `{i}` replaced with the list value.
 You're also not just limited to integers; you can also use the `repeat` property with strings:
- 
+
 ```yml
 ---
 Navbars:
-    
+
   {i} Navbar:
     repeat: [Top, Bottom]
-    
+
     {i} Navbar visible?:
       name: {i}_navbar_visible
       type: checkbox
@@ -467,16 +467,16 @@ When using string values like this, the string will be converted to lowercase an
 
 Finally, if you only want to repeat a specific field a number of times, rather than an entire section of fields, you can specify the `repeat` property directly on the field itself.
 This works exactly the same as with repeated sections, except that to avoid conflicts you should use the string `{f}` where you'd like the current index to be rendered.
- 
+
 This lets you use repeated sections and fields at the same time, if you'd like:
- 
+
 ```yml
 ---
 Navbars:
-    
+
   {i} Navbar:
     repeat: [Top, Bottom]
-    
+
     {i} Navbar visible?:
       name: {i}_navbar_visible
       type: checkbox
@@ -484,12 +484,12 @@ Navbars:
     {i} Navbar color:
       name: {i}_navbar_color
       type: color
-      
+
     {i} Navbar link number {f}:
       repeat: [1, 2, 3]
       name: {i}_navbar_link_{f}
       type: text-single
-``` 
+```
 
 
 ## Customising templates
@@ -502,7 +502,7 @@ To do this, you just need to tell the Grunt task which directory (or directories
 This is done through the `templates` task option.
 
 If a directory you specify has the same name as one of the [core templates][], your custom template will take precedence.
-If you'd prefer not to override an existing template, but want to use a custom template for a particular field, subsection, or section, just give your template a different name and specify it through the `template` property on the relevant field, subsection or section. 
+If you'd prefer not to override an existing template, but want to use a custom template for a particular field, subsection, or section, just give your template a different name and specify it through the `template` property on the relevant field, subsection or section.
 
 [core templates]: https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates
 
@@ -522,7 +522,7 @@ We'll tweak it to always include a placeholder that says "Enter your text...":
 ```
 
 Next, let's save the modified template in to our project.
-Assuming we have a `settings` directory containing the `.yml` files being used to generate our final HTML file, we can create a `templates` subdirectory and add our `text-multi.html` template, like so:   
+Assuming we have a `settings` directory containing the `.yml` files being used to generate our final HTML file, we can create a `templates` subdirectory and add our `text-multi.html` template, like so:
 
 ```
 ├─ Gruntfile.js
@@ -537,7 +537,7 @@ Assuming we have a `settings` directory containing the `.yml` files being used t
 ```
 
 Now we just need to tell our Grunt task to look in this directory for templates with the `templates` option:
- 
+
 ```js
 grunt.initConfig({
   shopify_theme_settings: {
@@ -559,7 +559,7 @@ Done! Now when we run `grunt shopify_theme_settings` from the command line, our 
 
 Often, you don't want to override all uses of a template, as with the previous example.
 You might want to render only one or two fields, subsections or sections differently.
-To continue with the placeholder example, what would we do if we just wanted to render *some* `<textarea>` elements with a placeholder? 
+To continue with the placeholder example, what would we do if we just wanted to render *some* `<textarea>` elements with a placeholder?
 
 To achieve this, we'd take what we've already done and just make some slight changes.
 First, instead of overriding the `text-multi.html` template, we'd give it a slightly different, non-conflicting name, like `placeholder-text-multi.html`:
@@ -577,7 +577,7 @@ First, instead of overriding the `text-multi.html` template, we'd give it a slig
 ```
 
 We then just need to go through the `.yml` files and specify on each `text-multi` field whether we want to use a custom template:
- 
+
 ```yml
 My Section:
   My Subsection:
@@ -586,19 +586,19 @@ My Section:
       name: my_first_textarea
       type: text-multi
       template: placeholder-text-multi
-      
+
     My Second Textarea:
       name: my_second_textarea
       type: text-multi
 ```
 
-In the example above, the first field will be rendered using our custom `placeholder-text-multi.html` template, while the second will be rendered with the default `text-multi.html` template. 
+In the example above, the first field will be rendered using our custom `placeholder-text-multi.html` template, while the second will be rendered with the default `text-multi.html` template.
 
 You can create custom templates not only for fields, but for subsections and sections too.
 Just remember that the best way to start with your custom templates is with a copy of the existing [core template][].
 
 [Swig][] is used when rendering the templates, so anything you can do in Swig you can do in your templates!
-The best way to start is probably to read through the templates that ship with the plugin to get an idea of what's possible. 
+The best way to start is probably to read through the templates that ship with the plugin to get an idea of what's possible.
 
 [core template]: https://github.com/discolabs/grunt-shopify-theme-settings/tree/master/tasks/templates
 [Swig]: http://paularmstrong.github.io/swig/
