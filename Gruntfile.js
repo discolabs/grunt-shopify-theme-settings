@@ -28,6 +28,14 @@ module.exports = function(grunt) {
       tests: ['tmp']
     },
 
+    // Configuration for testing the `shopify_import_theme_settings` task.
+    shopify_import_theme_settings: {
+      importSettings: {
+        importFile: 'test/fixtures/import.html',
+        exportFile: 'tmp/import.yml'
+      }
+    },
+
     // Configuration for testing the `shopify_theme_settings` task.
     shopify_theme_settings: {
       compileSpecific: {
@@ -46,6 +54,19 @@ module.exports = function(grunt) {
         options: {},
         files: {
           'tmp/test-repeat.html': 'test/fixtures/repeat.yml'
+        }
+      },
+      compileHomepageSlider: {
+        options: {
+          templates: ['test/fixtures/templates']
+        },
+        files: {
+          'tmp/test-slider.html': 'test/fixtures/slider.yml'
+        }
+      },
+      timeRange: {
+        files: {
+          'tmp/test-time-range.html': 'test/fixtures/time-range.yml'
         }
       }
     },

@@ -7,6 +7,7 @@ Appearance and Fonts:
       name: background_style
       type: select
       options:
+        "": ""
         none: None
         color: Custom Color
         image: Custom Image
@@ -23,4 +24,5 @@ Appearance and Fonts:
     Repeat Backgound Image?:
       name: background_image_repeat
       type: checkbox
+      hide_label: true
       inline_label: "Yes"

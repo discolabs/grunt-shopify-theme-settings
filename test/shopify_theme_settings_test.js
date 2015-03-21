@@ -29,5 +29,14 @@ exports.shopify_theme_settings = {
     test.equal(actual, expected, 'Repeat functionality worked.');
 
     test.done();
+  },
+  timeRange: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/test-time-range.html');
+    var expected = grunt.file.read('test/expected/test-time-range.html');
+    test.equal(actual, expected, 'Time Range input functionality worked.');
+
+    test.done();
   }
 };

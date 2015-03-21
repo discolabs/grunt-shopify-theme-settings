@@ -20,7 +20,9 @@ Boxes:
     Show {i} Box?:
       name: box_{i}_show
       type: checkbox
+      inline_label: "Show box {i}"
 
     "{i} Box Content":
       name: box_{i}_content
       type: text-multi
+      default: This is default content.
