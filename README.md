@@ -43,7 +43,7 @@ grunt.loadNpmTasks('grunt-shopify-theme-settings');
 
 ### Overview
 In your project's Gruntfile, add a section named `shopify_theme_settings` to the data object passed into `grunt.initConfig()`.
-You file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the order you'd like them to appear in the final settings file.
+Your file target should be the final `settings.html` file, with the source files being a list of YAML configuation files in the order you'd like them to appear in the final settings file.
 
 ```js
 grunt.initConfig({
