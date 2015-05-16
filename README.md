@@ -2,7 +2,17 @@
 
 > Grunt plugin to build a settings.html file for Shopify themes.
 
+**The grunt-shopify-theme-settings plugin is currently DEPRECATED**.
 
+With the new `settings_schema.json` settings format replacing `settings.html` in Shopify themes, this plugin is currently deprecated.
+
+It may be revived in the future to allow the generation of `settings_schema.json` files with some of the plugin's more useful features, such as being able to split settings into multiple files and repeated sections.
+If you have any interest in `settings_schema.json` support, please let me know in [this issue][].
+
+[this issue]: https://github.com/discolabs/grunt-shopify-theme-settings/issues/22
+
+
+## Overview
 This plugin greatly simplifies the management of the `settings.html` file common to all Shopify themes. It provides:
 
 - The declaration of desired settings in a simple, uncluttered YAML format that supports all Shopify theme input types;
