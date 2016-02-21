@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 No unreleased changes.
 
+## 0.4.7 - 2015-02-21
+### Changed
+- Change Grunt peer dependency to work with Grunt 1.0
+
 ## 0.4.6 - 2014-11-24
 ### Added
 - New `time-range` input type
